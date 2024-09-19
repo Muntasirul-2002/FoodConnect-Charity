@@ -38,10 +38,10 @@ const Navbar = () => {
                 </li>
                 <li className="nav-item @@about__active">
                   <Link to={"/about"} className="nav-link" >
-                    About
+                  About
                   </Link>
                 </li>
-                <li className="nav-item @@causes__active">
+                <li className="nav-item">
                   <Link to={"/causes"} className="nav-link" >
                     Causes
                   </Link>

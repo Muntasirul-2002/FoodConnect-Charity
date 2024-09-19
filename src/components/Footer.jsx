@@ -52,32 +52,28 @@ const Footer = () => {
                       <div className="column">
                         <h4>Our Address</h4>
                         <p>
-                          235 Terry, 10001 20C Trolley Square, DE 19806 U.S.A.
+                          KG Reddy College Of Engineering & Technology, HYD, IN
                         </p>
                       </div>
                       <div className="column">
                         <h4>Call Us</h4>
                         <p>Mon - Fri 10:30 -18:00</p>
                         <p>
-                          <a href="tel:+44-000-888-999">+44-000-888-999</a>
+                          <a href="tel:+916294268784">+91 6294268784</a>
                         </p>
                       </div>
                       <div className="column">
                         <h4>Mail Us</h4>
                         <p>
-                          <a href="mailto:info@example.com">info@example.com</a>
+                          <a href="mailto:foodconnect.kgr@gmail.com">foodconnect.kgr@gmail.com</a>
                         </p>
-                        <p>
-                          <a href="mailto:no.reply@example.com">
-                            no.reply@example.com
-                          </a>
-                        </p>
+                        
                       </div>
                       <div className="column">
                         <h4>Follow Us On</h4>
-                        <ul>
+                        <ul className=''>
                           <li>
-                            <a href="#facebook">
+                            <a href="#facebook" className='social-links-footer'>
                               <span
                                 className="fa fa-facebook"
                                 aria-hidden="true"
@@ -85,7 +81,7 @@ const Footer = () => {
                             </a>
                           </li>
                           <li>
-                            <a href="#linkedin">
+                            <a href="#linkedin" className='social-links-footer'>
                               <span
                                 className="fa fa-linkedin"
                                 aria-hidden="true"
@@ -93,7 +89,7 @@ const Footer = () => {
                             </a>
                           </li>
                           <li>
-                            <a href="#twitter">
+                            <a href="#twitter" className='social-links-footer'>
                               <span
                                 className="fa fa-twitter"
                                 aria-hidden="true"
@@ -101,7 +97,7 @@ const Footer = () => {
                             </a>
                           </li>
                           <li>
-                            <a href="#google">
+                            <a href="#google" className='social-links-footer'>
                               <span
                                 className="fa fa-google-plus"
                                 aria-hidden="true"
@@ -109,7 +105,7 @@ const Footer = () => {
                             </a>
                           </li>
                           <li>
-                            <a href="#github">
+                            <a href="#github" className='social-links-footer'>
                               <span
                                 className="fa fa-github"
                                 aria-hidden="true"
@@ -123,9 +119,9 @@ const Footer = () => {
                   <div className="footers14-bottom d-flex">
                     <div className="copyright">
                       <p>
-                        © 2020 Save Poor. All rights reserved. Design by{" "}
-                        <a href="https://w3layouts.com/" target="_blank">
-                          W3Layouts
+                        © 2024 Food Connect. All rights reserved. Design by{" "}
+                        <a href="https://muntasirul.vercel.app/" className='muntasirul' target="_blank">
+                          Muntasirul Islam
                         </a>
                       </p>
                     </div>
@@ -133,9 +129,9 @@ const Footer = () => {
                       <span className="fa fa-language" aria-hidden="true" />
                       <select>
                         <option>English</option>
-                        <option>Estonina</option>
-                        <option>Deutsch</option>
-                        <option>Nederlan;ds</option>
+                        <option>Bengali</option>
+                        <option>Hindi</option>
+                        <option>Urdu</option>
                       </select>
                     </div>
                   </div>
@@ -147,7 +143,6 @@ const Footer = () => {
               </button>
               {/* /move top */}
             </footer>
-            {/* Footers-14 */}
           </div>
         </div>
     </div>

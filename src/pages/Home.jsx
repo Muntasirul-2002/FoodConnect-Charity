@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from 'react-router-dom'
+import '../styles/home.css'
 const Home = () => {
   return (
     <div>
@@ -13,9 +14,9 @@ const Home = () => {
                     <div className="banner-info">
                       <div className="container">
                         <div className="banner-info-bg text-left">
-                          <p>Charity Life</p>
+                          <p>Food Connect</p>
                           <h5>
-                            Charity, Faith and Hope. Help the Homeless. Charity
+                            Food Connect, Faith and Hope. Help the hungry people. Charity
                             life.
                           </h5>
                           <a
@@ -36,10 +37,9 @@ const Home = () => {
                     <div className="banner-info">
                       <div className="container">
                         <div className="banner-info-bg text-left">
-                          <p>Save Children</p>
+                          <p>Save Food</p>
                           <h5>
-                            Donate with Kindness. Every amount Donated by you
-                            Counts.
+                            Donate with Kindness. donate with love and support.
                           </h5>
                           <a
                             href="about.html"
@@ -147,17 +147,17 @@ const Home = () => {
           <div className="container pt-lg-3">
             <div className="welcome-left text-center py-md-5 py-3">
               <h3 className="title-big">
-                Over 93% of all Donations go directly to Projects.
+                Over 50% of all restaurants go directly with our platform.
               </h3>
               <p className="my-3">
-                Under 7% for admin, fundraising, and salaries.
+                30% NGO Registered, other 10% Local Government
               </p>
               <h4>Thank you for your continued Support </h4>
               <a
                 href="#donate"
                 className="btn btn-style btn-primary mt-sm-5 mt-4"
               >
-                <span className="fa fa-heart mr-1" /> Donate Now
+                <span className="fa fa-heart mr-1" /> Donate Food
               </a>
             </div>
           </div>
@@ -223,8 +223,7 @@ const Home = () => {
           <div className="container py-lg-5 py-md-4 py-2">
             <div className="title-content text-center">
               <h3 className="title-big">
-                Our mission is to help people by distributing Money and Service
-                globally.
+                Our mission is to help Reducing Food Waste and Combating Hunger.
               </h3>
             </div>
             <div className="w3-stats text-center">
@@ -234,10 +233,10 @@ const Home = () => {
                     <span className="fa fa-users" />
                     <div
                       className="timer count-title count-number mt-3"
-                      data-to={1500}
+                      data-to={100}
                       data-speed={1500}
                     />
-                    <p className="count-text ">Total Volunteers</p>
+                    <p className="count-text ">Total NGO Volunteers</p>
                   </div>
                 </div>
                 <div className="col-md-3 col-6">
@@ -245,10 +244,10 @@ const Home = () => {
                     <span className="fa fa-cutlery" />
                     <div
                       className="timer count-title count-number mt-3"
-                      data-to={2256}
+                      data-to={250}
                       data-speed={1500}
                     />
-                    <p className="count-text ">Meals Served</p>
+                    <p className="count-text ">Restaurant Registered</p>
                   </div>
                 </div>
                 <div className="col-md-3 col-6">
@@ -256,10 +255,10 @@ const Home = () => {
                     <span className="fa fa-home" />
                     <div
                       className="timer count-title count-number mt-3"
-                      data-to={1000}
+                      data-to={30}
                       data-speed={1500}
                     />
-                    <p className="count-text ">Got Shelter</p>
+                    <p className="count-text ">Hostels Registered</p>
                   </div>
                 </div>
                 <div className="col-md-3 col-6">
@@ -267,10 +266,10 @@ const Home = () => {
                     <span className="fa fa-male" />
                     <div
                       className="timer count-title count-number mt-3"
-                      data-to={260}
+                      data-to={150}
                       data-speed={1500}
                     />
-                    <p className="count-text ">Adapted Children</p>
+                    <p className="count-text ">Members</p>
                   </div>
                 </div>
               </div>
@@ -299,15 +298,13 @@ const Home = () => {
               <div className="col-lg-4">
                 <div className="header-section">
                   <h3 className="title-big">Our Charity Causes </h3>
-                  <h4>
-                    If you want to work with for Save Poor charity?{" "}
-                    <a href="#url">Send your Details.</a>
+                  <h4 className="food-desc">
+                  If you're passionate about making a difference and want to collaborate with us, we'd love to hear from you
+                    <Link to={'/contact'}>Send your Details.</Link>
                   </h4>
-                  <p className="mt-3 mb-lg-5 mb-4">
+                  <p className="mt-3 mb-lg-5 mb-4 food-desc">
                     {" "}
-                    Lorem ipsum dolorus animi obcaecati vel ipsum. Vivamus a
-                    ligula quam. Ut blandit eu leo non. Duis sed dolor amet
-                    ipsum primis in faucibus orci dolor sit et amet igula quam.
+                    At Food Connect, we believe in a world where no food goes to waste and no person goes hungry. Our mission is to bridge the gap between surplus food and those in need by leveraging technology to connect donors with local charities and shelters. Through our platform, we aim to create a sustainable solution to food waste by ensuring that perfectly good food is redistributed to communities battling hunger.
                   </p>
                 </div>
                 <a
