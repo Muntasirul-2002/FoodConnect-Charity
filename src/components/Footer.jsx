@@ -67,7 +67,6 @@ const Footer = () => {
                         <p>
                           <a href="mailto:foodconnect.kgr@gmail.com">foodconnect.kgr@gmail.com</a>
                         </p>
-                        
                       </div>
                       <div className="column">
                         <h4>Follow Us On</h4>
