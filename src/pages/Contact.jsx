@@ -1,6 +1,24 @@
-import React from "react";
-import {Link} from 'react-router-dom'
+import React, { useRef } from "react";
+import { Link } from "react-router-dom";
+import emailjs from "@emailjs/browser";
+import { toast } from "react-hot-toast";
 const Contact = () => {
+  const form = useRef();
+  const sendEmail = (e) => {
+    e.preventDefault();
+    emailjs
+      .sendForm("service_uy6y6mr", "template_9efvywa", form.current, {
+        publicKey: "7dWbkJYVm3Lnl61G3",
+      })
+      .then(
+        () => {
+          toast.success("Mail sent successfully !");
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
+  };
   return (
     <div>
       <div>
@@ -40,42 +58,42 @@ const Contact = () => {
                       are marked *
                     </p>
                     <form
-                      action="https://sendmail.w3layouts.com/submitForm"
-                      method="post"
+                      ref={form}
+                      onSubmit={sendEmail}
                       className="text-right"
                     >
                       <div className="form-grid">
                         <input
                           type="text"
-                          name="w3lName"
-                          id="w3lName"
+                          name="name"
+                          id="name"
                           placeholder="Name*"
                           required
                         />
                         <input
                           type="email"
-                          name="w3lSender"
-                          id="w3lSender"
+                          name="email_id"
+                          id="email"
                           placeholder="Email*"
                           required
                         />
                         <input
-                          type="text"
-                          name="w3lPhone"
-                          id="w3lPhone"
+                          type="tel"
+                          name="mobile_no"
+                          id="mobile"
                           placeholder="Phone number*"
                           required
                         />
                         <input
                           type="text"
-                          name="w3lSubject"
-                          id="w3lSubject"
+                          name="subject"
+                          id="subject"
                           placeholder="Subject"
                         />
                       </div>
                       <textarea
-                        name="w3lMessage"
-                        id="w3lMessage"
+                        name="message"
+                        id="message"
                         placeholder="Message"
                         defaultValue={""}
                       />
@@ -106,7 +124,7 @@ const Contact = () => {
                         <a href="tel:+44-000-888-999"> +91 6394368784</a>
                       </p>
                       <Link
-                        to={'/foods'}
+                        to={"/foods"}
                         className="btn btn-style btn-outline-primary mt-4"
                       >
                         <span className="fa fa-heart mr-1" /> Make Donation

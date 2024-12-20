@@ -14,7 +14,7 @@ const FoodDetails = () => {
       const { data } = await axiosInstance.get(
         `/api/v1/food/single-food/${params.slug}`
       );
-      console.log(data); // Check the structure here
+
       setFoodDetails(data.viewSingleFood || null);
     } catch (error) {
       console.log("Error in getting food details:", error);
@@ -32,44 +32,53 @@ const FoodDetails = () => {
 
   return (
     <div className="food-details-div-container">
-        <h1 className="selected-food-details">
-            Selected Food Details :
-        </h1>
-        <div className="food-details-container">
-      <div className="food-image">
-        {foodDetails.images && foodDetails.images.length > 0 ? (
-          <img
-            src={`http://localhost:8080/image/${foodDetails.images[0]}`}
-            alt={foodDetails.name}
-          />
-        ) : (
-          <img
-            src="https://via.placeholder.com/300"
-            alt="Placeholder Image"
-          />
-        )}
+      <h1 className="selected-food-details">Selected Food Details :</h1>
+      <div className="food-details-container">
+        <div className="food-image">
+          {foodDetails.images && foodDetails.images.length > 0 ? (
+            <img
+              src={`http://localhost:8080/image/${foodDetails.images[0]}`}
+              alt={foodDetails.name}
+            />
+          ) : (
+            <img
+              src="https://via.placeholder.com/300"
+              alt="Placeholder Image"
+            />
+          )}
+        </div>
+        <div className="food-info">
+          <h3 className="food-title">Name : {foodDetails.name}</h3>
+          <h3 className="food-desc">
+            Desc : <span>{foodDetails.description}</span>
+          </h3>
+          <h3 className="food-category">
+            Category : <span>{foodDetails.category}</span>
+          </h3>
+          <h3 className="food-title">
+            Restaurant : {foodDetails.location} , near {foodDetails.landmark}
+          </h3>
+          
+          <h3 className="food-title">
+            Contact : <span>{foodDetails.contact}</span>
+          </h3>
+          <div className="icons">
+            <span className="ms wp">
+              <a
+                href={`https://wa.me/${foodDetails.contact}`}
+                className="wa-me"
+              >
+                <ion-icon name="logo-whatsapp"></ion-icon>
+              </a>
+            </span>
+            <a href={`tel:${foodDetails.contact}`}>
+              <span className="mail cart">
+                <ion-icon name="call-outline"></ion-icon>
+              </span>
+            </a>
+          </div>
+        </div>
       </div>
-      <div className="food-info">
-        <h1 className="food-title">Title : {foodDetails.name}</h1>
-        <h1 className="food-title">Desc : {foodDetails.description}</h1>
-        <h1 className="food-title">Availability : {foodDetails.quantity} KG</h1>
-        <h1 className="food-title">Category : {foodDetails.category}</h1>
-        <h1 className="food-title">Restaurant : {foodDetails.restaurant} , {foodDetails.landmark}</h1>
-        <h1 className="food-title">Contact : {foodDetails.contact}</h1>
-       <div className="icons">
-       <span className="navigate">
-       <ion-icon name="navigate-outline">
-       </ion-icon>
-       </span>
-       <span className="ms wp">
-      <a href={`https://wa.me/${foodDetails.contact}`} className="wa-me">
-      <ion-icon name="logo-whatsapp"></ion-icon>
-      </a>
-       </span>
-       <span className="ms cart"><ion-icon name="cart-outline"></ion-icon></span>
-       </div>
-      </div>
-    </div>
     </div>
   );
 };

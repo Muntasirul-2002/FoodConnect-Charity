@@ -47,8 +47,7 @@
   }
   
   .food-title {
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: 20px;
     color: #333;
     margin-bottom: 10px;
     transition: color 0.3s ease;
@@ -78,8 +77,10 @@
   }
   .wa-me{
     color: black;
+    margin-inline-start: 5px;
   }
-  .icons .ms{
+  .icons .mail{
     margin-inline-start: 10px;
+    color: black;
 
   }

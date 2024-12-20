@@ -4,11 +4,11 @@ import { getConfig, axiosInstance } from "../../utils/request";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../../context/Auth";
 const AddFood = () => {
-  const [auth, setAuth] = useAuth()
+  const [auth, setAuth] = useAuth();
   const [foodName, setFoodName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [hostelName, setHostelName] = useState("");
+  const [hostelName, setHostelName] = useState(auth?.user?.hosName || "");
   const [location, setLocation] = useState("");
   const [landmark, setLandmark] = useState("");
   const [contact, setContact] = useState("");
@@ -33,6 +33,13 @@ const AddFood = () => {
       );
       if (data?.success) {
         toast.success("Food Uploaded Successfully");
+        setFoodName("");
+        setDescription("");
+        setCategory("");
+        setLocation("");
+        setLandmark("");
+        setContact("");
+        setImages([]);
       } else {
         toast.error("Food Uploaded Failure");
       }
@@ -83,11 +90,9 @@ const AddFood = () => {
                 value={hostelName}
                 onChange={(e) => setHostelName(e.target.value)}
               >
-                
-                
-                <option value="">{auth?.user?.hosName}</option>
-                
-                
+                <option value={auth?.user?.hosName}>
+                  {auth?.user?.hosName}
+                </option>
               </select>
             </div>
             <div className="form-grid">
@@ -141,6 +146,7 @@ const AddFood = () => {
             <div className="form-group">
               <label htmlFor="contact">Contact Details</label>
               <input
+               required
                 id="contact"
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
