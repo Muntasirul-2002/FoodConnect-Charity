@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/foods.css";
+import { getConfig, axiosInstance } from "../utils/request";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 const Foods = () => {
+  const [allFoods, setAllFoods] = useState();
+  const foodList = async (req, res) => {
+    try {
+      await getConfig();
+      const res = await axiosInstance.get("/api/v1/food/food-list");
+      if (res && res.data.success) {
+        setAllFoods(res.data.viewFood);
+        // console.log(res.data)
+        localStorage.setItem("food", JSON.stringify(res.data));
+      } else {
+        toast.error("Food not found");
+      }
+    } catch (error) {
+      console.log("Error in getting food:", error);
+      toast.error("Something went wrong");
+    }
+  };
+  useEffect(() => {
+    foodList();
+  }, []);
   return (
     <div>
       <div className="inner-banner">
@@ -28,39 +51,80 @@ const Foods = () => {
       {/* food card design */}
       <section className="section-meals">
         <div className="container grid grid--3-cols margin-right-md">
-          <div className="meal">
-            <img
-              src="https://github.com/erenburuk/html-css-course/blob/1aacbb283eed0f760ab9f905e4ad5099cfa11204/07-Omnifood-Desktop/img/meals/meal-1.jpg?raw=true"
-              className="meal-img"
-              alt="Japanese Gyozas"
+        {allFoods && allFoods.length > 0 ? (
+  allFoods.map((foods, index) => (
+  <Link to={`/food-details/${foods.slug}`}>
+    <div className="meal" key={index}>
+      {foods.images && foods.images.length > 0 ? (
+        <img
+          src={`http://localhost:8080/image/${foods.images[0]}`}
+          className="meal-img"
+          alt="Japanese Gyozas"
+        />
+      ) : (
+        <img
+          src="https://github.com/erenburuk/html-css-course/blob/main/07-Omnifood-Desktop/img/meals/meal-2.jpg?raw=true"
+          className="meal-img"
+          alt="Japanese Gyozas"
+        />
+      )}
+
+      <div className="meal-content">
+        <div className="meal-tags">
+          <span className="tag tag--vegetarian">
+            {foods.category}
+          </span>
+        </div>
+        <p className="meal-title">{foods.name}</p>
+        <ul className="meal-attributes">
+          <li className="meal-attribute">
+          <ion-icon name="reader-outline"></ion-icon>
+            <span>
+              {foods.description}
+            </span>
+          </li>
+          <li className="meal-attribute">
+            <ion-icon
+              className="meal-icon"
+              name="restaurant-outline"
             />
-            <div className="meal-content">
-              <div className="meal-tags">
-                <span className="tag tag--vegetarian">Vegetarian</span>
-              </div>
-              <p className="meal-title">Japanese Gyozas</p>
-              <ul className="meal-attributes">
-                <li className="meal-attribute">
-                  <ion-icon className="meal-icon" name="flame-outline" />
-                  <span>
-                    <strong>650</strong> calories
-                  </span>
-                </li>
-                <li className="meal-attribute">
-                  <ion-icon className="meal-icon" name="restaurant-outline" />
-                  <span>
-                    NutriScore ® <strong>74</strong>
-                  </span>
-                </li>
-                <li className="meal-attribute">
-                  <ion-icon className="meal-icon" name="star-outline" />
-                  <span>
-                    <strong>4.9</strong> rating (537)
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
+            <span>
+              {foods.restaurant} <strong>|</strong> {foods.landmark}
+            </span>
+          </li>
+          <li className="meal-attribute">
+          <ion-icon name="call-outline"></ion-icon>
+            <span>
+              <strong>
+                {foods.contact}
+              </strong>
+            </span>
+          </li>
+          <li className="meal-attribute">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <span>
+            Uploaded : <strong>17:30 PM</strong>
+          </span>
+          </li>
+          <li className="meal-attribute">
+          <ion-icon name="navigate-outline"></ion-icon>
+          <span>
+           <a href="https://maps.app.goo.gl/tN5cFTUAjrpyWMan6">
+            Map Location
+           </a>
+          </span>
+
+          </li>
+        </ul>
+      </div>
+    </div>
+  </Link>
+  ))
+) : (
+  <></>
+)}
+
+
           <div className="meal">
             <img
               src="https://github.com/erenburuk/html-css-course/blob/main/07-Omnifood-Desktop/img/meals/meal-2.jpg?raw=true"
