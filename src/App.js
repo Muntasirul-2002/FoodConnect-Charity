@@ -14,6 +14,7 @@ import HostelHomePage from "./HostelDashboard/pages/HostelHomePage";
 import NgoPrivateRoute from "./Routes/NgoRoute";
 import NgoDashboard from "./NgoDashboard/pages/NgoDashboard";
 import FoodDetails from "./pages/FoodDetails";
+import Spinner from "./components/Spinner";
 const App = () => {
   const location = useLocation()
   const isDashboard = location.pathname.includes("/dashboard")
@@ -29,13 +30,10 @@ const App = () => {
         <Route path="/causes" element={<Causes />} />
         <Route path="/foods" element={<Foods />} />
         <Route path="/food-details/:slug" element={<FoodDetails/>} />
+        
 
         {/* //Hostel Dashboard Routes */}
         <Route path="/dashboard" element={<PrivateRoute />}>
-          {/* <Route element={<DashboardLayout />}>
-            <Route path='hostel' element={<Navigate to="hostel/home" replace />} />
-            <Route path='hostel/home' element={<HostelHomePage/>} />
-          </Route> */}
           <Route path="hostel" element={<HostelHomePage />} />
         </Route>
 

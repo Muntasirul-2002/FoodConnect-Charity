@@ -10,7 +10,6 @@ const UserTable = () => {
       const response = await axiosInstance.get("/api/v1/auth/hostel-users");
       if (response.data && response.data.success) {
         setHostelUsers(response.data.viewAllHostelUsers);
-        console.log("all users data: ", response.data.viewAllHostelUsers);
       }
     } catch (error) {
       console.log("Something went wrong");

@@ -86,7 +86,7 @@
     height: 100%;
     width: 100%;
     outline: none;
-    font-size: 1.06rem;
+    font-size: 14px;
     border-radius: 0.31rem;
     border: 1px solid #bfb3f2;
     padding: 0 1.25rem 0 3.12rem;
@@ -120,7 +120,7 @@
     border: none;
     color: black;
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: 14px;
     background: linear-gradient(135deg, #f1f1f1, #FF5200);
     margin-top: 2.19rem;
     border-radius: 0.31rem;
@@ -131,4 +131,8 @@
 .login-form .login-button:hover{
     background: linear-gradient(-135deg, #f1f1f1, #FF5200);
    
+}
+
+.forgot-pass-link{
+    font-size: 14px;
 }

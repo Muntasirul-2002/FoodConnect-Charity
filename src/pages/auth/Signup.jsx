@@ -12,10 +12,10 @@ const Signup = () => {
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
   const [memberId, setMemberId] = useState("");
-  const [resName, setResName] = useState(""); 
-  const [landmark, setLandmark] = useState(""); 
+  const [resName, setResName] = useState("");
+  const [landmark, setLandmark] = useState("");
   const [phone, setPhone] = useState("");
-  const [hosName, setHosName] = useState("")
+  const [hosName, setHosName] = useState("");
   const [role, setRole] = useState("owner");
   const navigate = useNavigate();
 
@@ -45,7 +45,7 @@ const Signup = () => {
           phone,
           role,
         };
-      }else if(selectForm === "hostel"){
+      } else if (selectForm === "hostel") {
         data = {
           hosName,
           email,
@@ -55,7 +55,7 @@ const Signup = () => {
           landmark,
           phone,
           role,
-        }
+        };
       }
 
       const response = await axiosInstance.post(
@@ -65,14 +65,20 @@ const Signup = () => {
       );
 
       if (response && response.data.success) {
-        toast.success(`${selectForm.charAt(0).toUpperCase() + selectForm.slice(1)} signup successful`);
-        navigate('/');
+        toast.success(
+          `${
+            selectForm.charAt(0).toUpperCase() + selectForm.slice(1)
+          } signup successful`
+        );
+        navigate("/");
       } else {
         toast.success(response.data.message);
       }
     } catch (error) {
       console.error("Error during signup:", error);
-      toast.error(error.response?.data?.message || "Signup error, please try again.");
+      toast.error(
+        error.response?.data?.message || "Signup error, please try again."
+      );
     }
   };
 
@@ -87,20 +93,21 @@ const Signup = () => {
     setAddress("");
     setMemberId("");
     setResName(""); // Reset restaurant name
-    setHosName("")
-    setLandmark(""); 
+    setHosName("");
+    setLandmark("");
     setPhone("");
-    setRole("owner");
+    setRole("hostel");
   };
   return (
     <>
       <div className="body">
         <div className="signup-container">
           <div className="title">
-            {
-              selectForm === "ngo" ? "NGO Signup" :
-              selectForm === "restaurant" ? "Restaurant Signup" : "Hostel Signup"
-            }
+            {selectForm === "ngo"
+              ? "NGO Signup"
+              : selectForm === "restaurant"
+              ? "Restaurant Signup"
+              : "Hostel Signup"}
           </div>
           <form onSubmit={handleSubmit} className="signup-form" action="">
             <div className="user-details">
@@ -121,222 +128,266 @@ const Signup = () => {
                       type="text"
                       placeholder="Organization name"
                       value={orgName}
-                      onChange={(e)=> setOrgName(e.target.value)}
+                      onChange={(e) => setOrgName(e.target.value)}
                       required
                     />
                   </div>
                   <div className="input-box">
                     <span className="details">Working Email</span>
-                    <input type="email" placeholder="NGO email" onChange={(e)=> setEmail(e.target.value)} required />
+                    <input
+                      type="email"
+                      placeholder="NGO email"
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
                   </div>
                   <div className="input-box">
                     <span className="details">Password</span>
-                    <input type="password" placeholder="Password" onChange={(e)=> setPassword(e.target.value)} required />
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
                   </div>
                   <div className="input-box">
                     <span className="details">User Name</span>
-                    <input type="text" placeholder="Register Name" onChange={(e)=> setName(e.target.value)} required />
+                    <input
+                      type="text"
+                      placeholder="Register Name"
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                    />
                   </div>
                   <div className="input-box">
                     <span className="details">Mobile</span>
-                    <input type="text" placeholder="Mobile no" onChange={(e)=> setMobile(e.target.value)} required />
+                    <input
+                      type="text"
+                      placeholder="Mobile no"
+                      onChange={(e) => setMobile(e.target.value)}
+                      required
+                    />
                   </div>
                   <div className="input-box">
                     <span className="details">Full Address</span>
-                    <input type="text" placeholder="Location" onChange={(e)=> setAddress(e.target.value)} required />
+                    <input
+                      type="text"
+                      placeholder="Location"
+                      onChange={(e) => setAddress(e.target.value)}
+                      required
+                    />
                   </div>
                   <div className="input-box">
                     <span className="details">Member Id (optional)</span>
-                    <input type="text" placeholder="Member id" onChange={(e)=> setMemberId(e.target.value)} />
+                    <input
+                      type="text"
+                      placeholder="Member id"
+                      onChange={(e) => setMemberId(e.target.value)}
+                    />
                   </div>
+
                   <div className="input-box">
                     <span className="details">Role</span>
-                    <select
-                      required
-                      onChange={(e)=> setRole(e.target.value)}
-                    >
-                      <option value="owner">Owner</option>
-                      <option value="volunteer">Volunteer</option>
-                      <option value="member">Member</option>
+                    <select required onChange={(e) => setRole(e.target.value)}>
+                      {selectForm === "ngo" && <option value="ngo">NGO</option>}
+
+                      <option value="volunteer" disabled>
+                        Volunteer
+                      </option>
+                      <option value="member" disabled>
+                        Member
+                      </option>
                     </select>
                   </div>
                 </>
               )}
 
-{selectForm === "restaurant" && (
-              <>
-                <div className="input-box">
-                  <span className="details">Restaurant Name</span>
-                  <input
-                    type="text"
-                    placeholder="Restaurant name"
-                    value={resName}
-                    onChange={(e) => setResName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">Email</span>
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">Password</span>
-                  <input
-                    type="password"
-                    placeholder="Set Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">User Name</span>
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">Address</span>
-                  <textarea
-                    rows={4}
-                    cols={4}
-                    style={{ width: '100%', height: '90%' }}
-                    placeholder="Restaurant address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">Landmark</span>
-                  <input
-                    type="text"
-                    placeholder="Landmark (e.g., @AR Kirana Store)"
-                    value={landmark}
-                    onChange={(e) => setLandmark(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">Phone No.</span>
-                  <input
-                    type="text"
-                    placeholder="Phone Number"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">Role</span>
-                  <select
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                    required
-                  >
-                    <option value="owner">Owner</option>
-                    <option value="manager">Manager</option>
-                  </select>
-                </div>
-              </>
-            )}
-            {selectForm === "hostel" && (
-              <>
-                <div className="input-box">
-                  <span className="details">Hostel Name</span>
-                  <input
-                    type="text"
-                    placeholder="Hostel name"
-                    value={hosName}
-                    onChange={(e) => setHosName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">Email</span>
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">Password</span>
-                  <input
-                    type="password"
-                    placeholder="Set Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">User Name</span>
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">Address</span>
-                  <textarea
-                    rows={4}
-                    cols={4}
-                    style={{ width: '100%', height: '90%' }}
-                    placeholder="Restaurant address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">Landmark</span>
-                  <input
-                    type="text"
-                    placeholder="Landmark (e.g., @AR Kirana Store)"
-                    value={landmark}
-                    onChange={(e) => setLandmark(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">Phone No.</span>
-                  <input
-                    type="text"
-                    placeholder="Phone Number"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">Role</span>
-                  <select
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                    required
-                  >
-                    <option value="owner">Hostel Owner</option>
-                    <option value="manager">Manager</option>
-                  </select>
-                </div>
-              </>
-            )}
+              {selectForm === "restaurant" && (
+                <>
+                  <div className="input-box">
+                    <span className="details">Restaurant Name</span>
+                    <input
+                      type="text"
+                      placeholder="Restaurant name"
+                      value={resName}
+                      onChange={(e) => setResName(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-box">
+                    <span className="details">Email</span>
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-box">
+                    <span className="details">Password</span>
+                    <input
+                      type="password"
+                      placeholder="Set Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-box">
+                    <span className="details">User Name</span>
+                    <input
+                      type="text"
+                      placeholder="Your name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-box">
+                    <span className="details">Address</span>
+                    <textarea
+                      rows={4}
+                      cols={4}
+                      style={{ width: "100%", height: "90%" }}
+                      placeholder="Restaurant address"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-box">
+                    <span className="details">Landmark</span>
+                    <input
+                      type="text"
+                      placeholder="Landmark (e.g., @AR Kirana Store)"
+                      value={landmark}
+                      onChange={(e) => setLandmark(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-box">
+                    <span className="details">Phone No.</span>
+                    <input
+                      type="text"
+                      placeholder="Phone Number"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-box">
+                    <span className="details">Role</span>
+                    <select
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                      required
+                    >
+                      {selectForm === "restaurant" && (
+                        <option value="restaurant">Restaurant</option>
+                      )}
+                      <option value="ngo" disabled>
+                        NGO
+                      </option>
+                      <option value="hostel" disabled>
+                        Hostel
+                      </option>
+                    </select>
+                  </div>
+                </>
+              )}
+              {selectForm === "hostel" && (
+                <>
+                  <div className="input-box">
+                    <span className="details">Hostel Name</span>
+                    <input
+                      type="text"
+                      placeholder="Hostel name"
+                      value={hosName}
+                      onChange={(e) => setHosName(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-box">
+                    <span className="details">Email</span>
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-box">
+                    <span className="details">Password</span>
+                    <input
+                      type="password"
+                      placeholder="Set Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-box">
+                    <span className="details">User Name</span>
+                    <input
+                      type="text"
+                      placeholder="Your name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-box">
+                    <span className="details">Address</span>
+                    <textarea
+                      rows={4}
+                      cols={4}
+                      style={{ width: "100%", height: "90%" }}
+                      placeholder="Restaurant address"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-box">
+                    <span className="details">Landmark</span>
+                    <input
+                      type="text"
+                      placeholder="Landmark (e.g., @AR Kirana Store)"
+                      value={landmark}
+                      onChange={(e) => setLandmark(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-box">
+                    <span className="details">Phone No.</span>
+                    <input
+                      type="text"
+                      placeholder="Phone Number"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-box">
+                    <span className="details">Role</span>
+                    <select
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                      required
+                    >
+                      {selectForm === "hostel" && (
+                        <option value="hostel">Hostel</option>
+                      )}
+                      <option value="ngo" disabled>
+                        NGO
+                      </option>
+                      <option value="restaurant" disabled>Restaurant</option>
+                    </select>
+                  </div>
+                </>
+              )}
             </div>
             <div className="button">
               <input type="submit" value="Register" />

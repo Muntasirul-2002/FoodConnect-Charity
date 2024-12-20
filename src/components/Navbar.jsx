@@ -129,64 +129,73 @@ const Navbar = () => {
                   {/* /search popup */}
                 </div>
               </li>
-              <li className="align-self">
+              {/* <li className="align-self">
                 <a
                   href="#donate"
                   className="btn btn-style btn-primary ml-lg-3 mr-lg-2"
                 >
                   <span className="fa fa-heart mr-1" /> Donate
                 </a>
-              </li>
-              {/* User Avatar and Dropdown */}
-              <li className="nav-item avatar-dropdown">
-                <div className="user-avatar" onClick={toggleDropdown}>
-                  <img src="https://avatar.iran.liara.run/public/boy" height={38} width={38} alt="" />
-                  {/* <MdAccountCircle  /> */}
-                </div>
-                {isDropdownOpen && (
-                  <div className="avatar-dropdown-menu">
-                    <p className="auth-email">
-                      {auth?.user?.email}
-                    </p>
-                    <NavLink
-                      to={`/dashboard/${
-                        auth?.user?.role === "hostel"
-                          ? "hostel"
-                          : auth?.user?.role === "ngo"
-                          ? "ngo"
-                          : auth?.user?.role === "restaurant"
-                          ? "restaurant"
-                          : ""
-                      }`}
-                      className="avatar-dropdown-item"
-                    >
-                      Dashboard
-                    </NavLink>
+              </li> */}
+              {auth.user ? (
+                <>
+                  <li className="nav-item avatar-dropdown">
+                    <div className="user-avatar" onClick={toggleDropdown}>
+                      <img
+                        src="https://avatar.iran.liara.run/public/boy"
+                        height={38}
+                        width={38}
+                        alt=""
+                      />
+                      {auth?.user?.name}
+                      {/* <MdAccountCircle  /> */}
+                    </div>
+                    {isDropdownOpen && (
+                      <div className="avatar-dropdown-menu">
+                        <p className="auth-email">{auth?.user?.email}</p>
+                        <NavLink
+                          to={`/dashboard/${
+                            auth?.user?.role === "hostel"
+                              ? "hostel"
+                              : auth?.user?.role === "ngo"
+                              ? "ngo"
+                              : auth?.user?.role === "restaurant"
+                              ? "restaurant"
+                              : ""
+                          }`}
+                          className="avatar-dropdown-item"
+                        >
+                          Dashboard
+                        </NavLink>
 
-                    <Link to="/profile" className="avatar-dropdown-item">
-                      Profile
-                    </Link>
-                    <NavLink
-                      className="avatar-dropdown-item"
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </NavLink>
+                        <Link to="/profile" className="avatar-dropdown-item">
+                          Profile
+                        </Link>
+                        <NavLink
+                          className="avatar-dropdown-item"
+                          onClick={handleLogout}
+                        >
+                          Logout
+                        </NavLink>
+                      </div>
+                    )}
+                  </li>
+                </>
+              ) : (
+                <>
+                  <div className="mobile-position">
+                    <nav className="navigation">
+                      <div className="theme-switch-wrapper">
+                        <input type="checkbox" id="checkbox" />
+                        <Link to="/login" className="mode-container">
+                          <IoMdLogIn size={25} />
+                        </Link>
+                      </div>
+                    </nav>
                   </div>
-                )}
-              </li>
+                </>
+              )}
             </ul>
-          </div>
-          {/* Toggle switch for light and dark theme */}
-          <div className="mobile-position">
-            <nav className="navigation">
-              <div className="theme-switch-wrapper">
-                <input type="checkbox" id="checkbox" />
-                <Link to="/login" className="mode-container">
-                  <IoMdLogIn size={25} />
-                </Link>
-              </div>
-            </nav>
           </div>
         </nav>
       </div>

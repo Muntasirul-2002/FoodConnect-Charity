@@ -3,6 +3,7 @@ import { useAuth } from "../context/Auth";
 import { Outlet } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { axiosInstance, getConfig } from "../utils/request";
+import Spinner from "../components/Spinner";
 
 export default function PrivateRoute() {
   const [ok, setOk] = useState(false);
@@ -22,5 +23,5 @@ export default function PrivateRoute() {
     if (auth?.token) authCheck();
   }, [auth?.token]);
 
-  return ok ? <Outlet /> : <div>You don't have access</div>;
+  return ok ? <Outlet /> : <Spinner/>;
 }

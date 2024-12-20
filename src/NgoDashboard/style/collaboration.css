@@ -1,0 +1,170 @@
+.table-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .table-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 24px;
+  }
+  
+
+  .table-wrapper {
+    overflow-x: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+  }
+  
+  .user-table th,
+  .user-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .user-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .user-table th:hover {
+    background-color: #eef1f5;
+  }
+  
+  .user-table tbody tr:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .sort-indicator {
+    margin-left: 5px;
+    color: #4a90e2;
+  }
+  .data-sizes{
+    font-size: 15px;
+  }
+  .role-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  
+  .role-badge.owner {
+    background-color: #e3f2fd;
+    color: #1976d2;
+  }
+  
+  .role-badge.hostel {
+    background-color: #f1f8e9;
+    color: #689f38;
+  }
+  
+  .role-badge.editor {
+    background-color: #fff3e0;
+    color: #f57c00;
+  }
+  
+  .role-badge.manager {
+    background-color: #f3e5f5;
+    color: #8e24aa;
+  }
+  
+  .action-button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-right: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .action-button.edit {
+    background-color: #4a90e2;
+    color: white;
+  }
+  
+  .action-button.edit:hover {
+    background-color: #357abd;
+  }
+  
+  .action-button.delete {
+    background-color: #dc3545;
+    
+    color: white;
+  }
+  
+  .action-button.delete:hover {
+    background-color: #c82333;
+  }
+  
+
+ 
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .table-wrapper {
+      margin: 0 -20px;
+      border-radius: 0;
+    }
+  
+    .user-table {
+      display: block;
+    }
+  
+    .user-table thead {
+      display: none;
+    }
+  
+    .user-table tbody {
+      display: block;
+    }
+  
+    .user-table tr {
+      display: block;
+      border-bottom: 2px solid #eee;
+      padding: 15px;
+    }
+  
+    .user-table td {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border: none;
+    }
+  
+    .user-table td::before {
+      content: attr(data-label);
+      font-weight: 600;
+      margin-right: 10px;
+    }
+  
+    .action-button {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  }

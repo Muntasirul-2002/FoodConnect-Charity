@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import "../styles/addfood.css";
 import { getConfig, axiosInstance } from "../../utils/request";
+import { toast } from "react-hot-toast";
+import { useAuth } from "../../context/Auth";
 const AddFood = () => {
+  const [auth, setAuth] = useAuth()
   const [foodName, setFoodName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -10,6 +13,7 @@ const AddFood = () => {
   const [landmark, setLandmark] = useState("");
   const [contact, setContact] = useState("");
   const [images, setImages] = useState([]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -28,20 +32,19 @@ const AddFood = () => {
         foodData
       );
       if (data?.success) {
-        alert("Food Uploaded Successfully");
+        toast.success("Food Uploaded Successfully");
       } else {
-        alert("Food Uploaded Failure");
+        toast.error("Food Uploaded Failure");
       }
     } catch (error) {
       console.log("Failed to upload food", error);
+      toast.error("Something went wrong!!");
     }
   };
 
- 
   const handleImageChange = (e) => {
-    setImages(Array.from(e.target.files))
-
-  }
+    setImages(Array.from(e.target.files));
+  };
   return (
     <>
       <div className="form-container">
@@ -74,17 +77,17 @@ const AddFood = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="category">Select Hostel</label>
+              <label htmlFor="hostel">Select Hostel</label>
               <select
-                id="category"
+                id="hostel"
                 value={hostelName}
                 onChange={(e) => setHostelName(e.target.value)}
               >
-                <option value="">Select a Hostel</option>
-                <option value="appetizer">Appetizer</option>
-                <option value="main-course">Main Course</option>
-                <option value="dessert">Dessert</option>
-                <option value="beverage">Beverage</option>
+                
+                
+                <option value="">{auth?.user?.hosName}</option>
+                
+                
               </select>
             </div>
             <div className="form-grid">
@@ -101,12 +104,22 @@ const AddFood = () => {
 
               <div className="form-group">
                 <label htmlFor="landmark">Landmark</label>
-                <input id="landmark" type="text" step="0.01" value={landmark} onChange={(e)=> setLandmark(e.target.value)}  />
+                <input
+                  id="landmark"
+                  type="text"
+                  step="0.01"
+                  value={landmark}
+                  onChange={(e) => setLandmark(e.target.value)}
+                />
               </div>
             </div>
             <div className="form-group">
               <label htmlFor="category">Select Category</label>
-              <select id="category" value={category} onChange={(e)=> setCategory(e.target.value)}>
+              <select
+                id="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
                 <option value="">Select a Food Category</option>
                 <option value="veg">Veg</option>
                 <option value="non-veg">Non-Veg</option>
@@ -127,7 +140,12 @@ const AddFood = () => {
 
             <div className="form-group">
               <label htmlFor="contact">Contact Details</label>
-              <input id="contact" value={contact} onChange={(e)=> setContact(e.target.value)} type="number" />
+              <input
+                id="contact"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
+                type="number"
+              />
             </div>
 
             <center>

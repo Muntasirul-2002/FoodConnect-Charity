@@ -22,7 +22,7 @@ const Login = () => {
       const response = await axiosInstance.post("/api/v1/auth/login", {
         email,
         password,
-        role: selectForm, // Make sure to include role
+        role: selectForm, 
       });
       if (response && response.data.success) {
         toast.success("Login successful");
