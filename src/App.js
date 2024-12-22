@@ -18,6 +18,7 @@ import Spinner from "./components/Spinner";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import RestaurantPrivateRoute from "./Routes/RestaurantRoute";
 import RestaurantHomePage from "./RestaurantDashboard/pages/RestaurantHomePage";
+import Cart from "./pages/Cart";
 const App = () => {
   const location = useLocation()
   const isDashboard = location.pathname.includes("/dashboard")
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/causes" element={<Causes />} />
         <Route path="/foods" element={<Foods />} />
         <Route path="/food-details/:slug" element={<FoodDetails/>} />
+        <Route path="/cart" element={<Cart/>} />
         
 
         {/* //Hostel Dashboard Routes */}

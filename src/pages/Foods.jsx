@@ -4,9 +4,12 @@ import { getConfig, axiosInstance } from "../utils/request";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/Auth";
+import img404 from "../image/img-not-found.jpg";
+import { useCart } from "../context/cart";
 const Foods = () => {
   const [allFoods, setAllFoods] = useState();
   const [auth] = useAuth();
+  const [cart, setCart] = useCart();
 
   const foodList = async (req, res) => {
     try {
@@ -53,6 +56,26 @@ const Foods = () => {
       return "red";
     }
   };
+
+  //add food in cart
+  const addFoodInCart = async (food) => {
+    try {
+      await getConfig();
+      const { data } = await axiosInstance.post("/api/v1/food/cart/add-item", {
+        userID: auth?.user?._id,
+        foodID: food._id,
+        role: auth?.user?.role,
+      });
+
+      const updatedCart = [...cart, data.cart[0]];
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      toast.success("Item added in cart");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to add item in cart");
+    }
+  };
   return (
     <div>
       <div className="inner-banner">
@@ -82,77 +105,84 @@ const Foods = () => {
         <div className="container grid grid--3-cols margin-right-md">
           {allFoods && allFoods.length > 0 ? (
             allFoods.map((foods, index) => (
-              <Link to={`/food-details/${foods.slug}`}>
-                <div className="meal" key={index}>
-                  {foods.images && foods.images.length > 0 ? (
+              <div className="meal" key={index}>
+                {foods.images && foods.images.length > 0 ? (
+                  <Link to={`/food-details/${foods.slug}`}>
                     <img
                       src={`http://localhost:8080/image/${foods.images[0]}`}
                       className="meal-img"
                       alt="Japanese Gyozas"
                     />
-                  ) : (
-                    <img
-                      src="https://github.com/erenburuk/html-css-course/blob/main/07-Omnifood-Desktop/img/meals/meal-2.jpg?raw=true"
-                      className="meal-img"
-                      alt="Japanese Gyozas"
-                    />
-                  )}
+                  </Link>
+                ) : (
+                  <img
+                    src={img404}
+                    className="meal-img"
+                    alt="Japanese Gyozas"
+                  />
+                )}
 
-                  <div className="meal-content">
-                    <div className="meal-tags">
-                      <span className="tag tag--vegetarian">
-                        {foods.category}
-                      </span>
-                    </div>
-                    <p className="meal-title">{foods.name}</p>
-                    <ul className="meal-attributes">
-                      <li className="meal-attribute">
-                        <ion-icon name="reader-outline"></ion-icon>
-                        <span>{foods.description.substring(30, 0)} ...</span>
-                      </li>
-                      <li className="meal-attribute">
-                        <ion-icon name="navigate-outline"></ion-icon>
-                        <span>
-                          {foods.location} <strong>|</strong> near{" "}
-                          {foods.landmark}
-                        </span>
-                      </li>
-                      <li className="meal-attribute">
-                        <ion-icon name="call-outline"></ion-icon>
-                        <span>
-                          <strong>{foods.contact}</strong>
-                        </span>
-                      </li>
-                      <li className="meal-attribute">
-                        <ion-icon name="calendar-outline"></ion-icon>
-                        <span>
-                          Uploaded :{" "}
-                          <strong>{formatTime(foods.createdAt)}</strong>
-                          <span
-                            className="status-dot"
-                            style={{
-                              backgroundColor: getFreshNess(foods.createdAt),
-                              display: "inline-block",
-                              width: "10px",
-                              height: "10px",
-                              borderRadius: "50%",
-                              marginLeft: "5px",
-                            }}
-                          ></span>
-                        </span>
-                      </li>
-                    </ul>
-
-                    {auth?.user?.role === "hostel" && "restaurant" ? (
-                      <> </>
-                    ) : (
-                      <center>
-                        <button className="order-button">Order</button>
-                      </center>
-                    )}
+                <div className="meal-content">
+                  <div className="meal-tags">
+                    <span className="tag tag--vegetarian">
+                      {foods.category}
+                    </span>
                   </div>
+                  <p className="meal-title">{foods.name}</p>
+                  <ul className="meal-attributes">
+                    <li className="meal-attribute">
+                      <ion-icon name="reader-outline"></ion-icon>
+                      <span>{foods.description.substring(30, 0)} ...</span>
+                    </li>
+                    <li className="meal-attribute">
+                      <ion-icon name="navigate-outline"></ion-icon>
+                      <span>
+                        {foods.location} <strong>|</strong> near{" "}
+                        {foods.landmark}
+                      </span>
+                    </li>
+                    <li className="meal-attribute">
+                      <ion-icon name="call-outline"></ion-icon>
+                      <span>
+                        <strong>{foods.contact}</strong>
+                      </span>
+                    </li>
+                    <li className="meal-attribute">
+                      <ion-icon name="calendar-outline"></ion-icon>
+                      <span>
+                        Uploaded :{" "}
+                        <strong>{formatTime(foods.createdAt)}</strong>
+                        <span
+                          className="status-dot"
+                          style={{
+                            backgroundColor: getFreshNess(foods.createdAt),
+                            display: "inline-block",
+                            width: "10px",
+                            height: "10px",
+                            borderRadius: "50%",
+                            marginLeft: "5px",
+                          }}
+                        ></span>
+                      </span>
+                    </li>
+                  </ul>
+
+                  {auth?.user?.role === "hostel" && "restaurant" ? (
+                    <> </>
+                  ) : (
+                    <center>
+                      <button
+                        onClick={() => {
+                          addFoodInCart(foods);
+                        }}
+                        className="order-button"
+                      >
+                        Add to Bag
+                      </button>
+                    </center>
+                  )}
                 </div>
-              </Link>
+              </div>
             ))
           ) : (
             <>

@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { IoMdLogIn } from "react-icons/io";
 import { MdAccountCircle } from "react-icons/md";
 import "../styles/navbar.css";
 import { useAuth } from "../context/Auth";
 import { toast } from "react-hot-toast";
+import { Badge } from "antd";
+import { useCart } from "../context/cart";
+import { BsCartCheck } from "react-icons/bs";
+
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [auth, setAuth] = useAuth();
+  const [cart, setCart] = useCart()
+  const navigate = useNavigate()
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -20,7 +26,9 @@ const Navbar = () => {
       token: "",
     });
     localStorage.removeItem("auth");
+    localStorage.removeItem("cart");
     localStorage.clear();
+    setCart([])
     toast.success("Logged out");
   };
 
@@ -38,6 +46,8 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+ 
 
   return (
     <header id="site-header" className="fixed-top">
@@ -128,15 +138,15 @@ const Navbar = () => {
                   </div>
                   {/* /search popup */}
                 </div>
+               
               </li>
-              {/* <li className="align-self">
-                <a
-                  href="#donate"
-                  className="btn btn-style btn-primary ml-lg-3 mr-lg-2"
-                >
-                  <span className="fa fa-heart mr-1" /> Donate
-                </a>
-              </li> */}
+             <div className="count-cart">
+             <NavLink to="/cart">
+             <Badge count={cart?.length} >
+              <BsCartCheck className="cart-badge" />
+              </Badge>
+             </NavLink>
+             </div>
               {auth.user ? (
                 <>
                   <li className="nav-item avatar-dropdown">
@@ -147,8 +157,10 @@ const Navbar = () => {
                         width={38}
                         alt=""
                       />
-                      {auth?.user?.name}
-                      {/* <MdAccountCircle  /> */}
+                    
+                      Welcome, {auth?.user?.name.substring(4,0)}...
+                     
+                     
                     </div>
                     {isDropdownOpen && (
                       <div className="avatar-dropdown-menu">
