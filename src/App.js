@@ -15,6 +15,9 @@ import NgoPrivateRoute from "./Routes/NgoRoute";
 import NgoDashboard from "./NgoDashboard/pages/NgoDashboard";
 import FoodDetails from "./pages/FoodDetails";
 import Spinner from "./components/Spinner";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import RestaurantPrivateRoute from "./Routes/RestaurantRoute";
+import RestaurantHomePage from "./RestaurantDashboard/pages/RestaurantHomePage";
 const App = () => {
   const location = useLocation()
   const isDashboard = location.pathname.includes("/dashboard")
@@ -26,6 +29,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/reset-password" element={<ForgotPassword/>} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/causes" element={<Causes />} />
         <Route path="/foods" element={<Foods />} />
@@ -36,6 +40,12 @@ const App = () => {
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="hostel" element={<HostelHomePage />} />
         </Route>
+
+        {/* Restaurant Dashboard Routes */}
+        <Route path="/dashboard" element={<RestaurantPrivateRoute/>}>
+        <Route path="restaurant" element={<RestaurantHomePage/>}/>
+        </Route>
+
 
         {/* Ngo Dashboard routes */}
         <Route path="/dashboard" element={<NgoPrivateRoute />}>

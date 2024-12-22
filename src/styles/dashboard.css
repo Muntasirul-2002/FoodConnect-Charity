@@ -54,6 +54,11 @@
   .sidebar button:hover {
     background-color: #555;
   }
+
+  .res-dashboard{
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
   
   /* Content styling */
   .dashboard-content {

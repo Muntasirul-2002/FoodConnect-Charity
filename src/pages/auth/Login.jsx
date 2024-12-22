@@ -4,8 +4,9 @@ import "../../styles/adminlogin.css";
 import { axiosInstance, getConfig } from "../../utils/request";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../../context/Auth";
-
+import {Link, useNavigate} from 'react-router-dom'
 const Login = () => {
+  const navigate = useNavigate()
   const [selectForm, setSelectForm] = useState("admin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,9 +33,9 @@ const Login = () => {
           token: response.data.token,
         });
         localStorage.setItem("auth", JSON.stringify(response.data));
-        window.location.href = "/";
+        navigate("/");
       } else {
-        toast.error(response.data.message);
+        toast.error("Invalid Credentials");
       }
     } catch (error) {
       console.log(error);
@@ -98,9 +99,9 @@ const Login = () => {
                 />
                 <i className="material-symbols-outlined">lock</i>
               </div>
-              <a href="#" className="forgot-pass-link">
+              <Link to={'/reset-password'} className="forgot-pass-link">
                 Forgot Password?
-              </a>
+              </Link>
               <button type="submit" className="login-button">
                 Login
               </button>

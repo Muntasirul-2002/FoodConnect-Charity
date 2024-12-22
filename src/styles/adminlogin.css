@@ -89,7 +89,7 @@
     font-size: 14px;
     border-radius: 0.31rem;
     border: 1px solid #bfb3f2;
-    padding: 0 1.25rem 0 3.12rem;
+    padding: 0 1.25rem 0 4.12rem;
     transition: 0.2s ease;
 }
 .login-form .input-wrapper .input-field:focus{

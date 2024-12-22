@@ -1,10 +1,10 @@
 .loader {
-    width: 48px;
     height: 48px;
-    border: 3px solid #FFF;
     border-radius: 50%;
-    display: inline-block;
-    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 20%;
+    align-items: center;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
   } 
@@ -20,6 +20,11 @@
     border-radius: 50%;
     border: 3px solid transparent;
     border-bottom-color: #FF3D00;
+  }
+  .spinner-text{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
   }
   
   @keyframes rotation {
