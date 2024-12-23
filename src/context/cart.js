@@ -4,6 +4,7 @@ import { axiosInstance, getConfig } from "../utils/request";
 const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
+  
   const [cart, setCart] = useState(() => {
     // Initialize cart from localStorage if it exists
     const storedCart = localStorage.getItem("cart");

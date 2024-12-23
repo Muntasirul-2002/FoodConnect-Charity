@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import '../styles/cart.css'
 import {useAuth} from '../context/Auth'
+import {useCart} from '../context/cart'
+
 const Cart = () => {
     const [auth] = useAuth()
+    const [cart, setCart] = useCart()
     const [cartItems] = useState([
         {
           id: 1,
@@ -32,7 +35,7 @@ const Cart = () => {
     
     <div className="cart-items">
       <h2>{`${auth?.user?.orgName} - Cart Items`}</h2>
-      {cartItems.map((item) => (
+      {cart.map((item) => (
         <div key={item.id} className="cart-item-card">
           <div className="cart-item-left">
             <img src={item.image} alt={item.name} />

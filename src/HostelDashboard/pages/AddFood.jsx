@@ -5,52 +5,113 @@ import { toast } from "react-hot-toast";
 import { useAuth } from "../../context/Auth";
 const AddFood = () => {
   const [auth, setAuth] = useAuth();
+  // const [foodName, setFoodName] = useState("");
+  // const [description, setDescription] = useState("");
+  // const [category, setCategory] = useState("");
+  // const [hostelName, setHostelName] = useState(auth?.user?.hosName || "");
+  // const [location, setLocation] = useState("");
+  // const [landmark, setLandmark] = useState("");
+  // const [contact, setContact] = useState("");
+  // const [images, setImages] = useState([]);
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const foodData = new FormData();
+  //     foodData.append("foodName", foodName);
+  //     foodData.append("description", description);
+  //     foodData.append("category", category);
+  //     foodData.append("hostelName", hostelName);
+  //     foodData.append("location", location);
+  //     foodData.append("landmark", landmark);
+  //     foodData.append("contact", contact);
+  //     images.forEach((image) => foodData.append("images", image));
+  //     await getConfig();
+  //     const { data } = await axiosInstance.post(
+  //       `/api/v1/food/add-food`,
+  //       foodData
+  //     );
+  //     if (data?.success) {
+  //       toast.success("Food Uploaded Successfully");
+  //       setFoodName("");
+  //       setDescription("");
+  //       setCategory("");
+  //       setLocation("");
+  //       setLandmark("");
+  //       setContact("");
+  //       setImages([]);
+  //     } else {
+  //       toast.error("Food Uploaded Failure");
+  //     }
+  //   } catch (error) {
+  //     console.log("Failed to upload food", error);
+  //     toast.error("Something went wrong!!");
+  //   }
+  // };
+
+  // const handleImageChange = (e) => {
+  //   setImages(Array.from(e.target.files));
+  // };
+
   const [foodName, setFoodName] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [hostelName, setHostelName] = useState(auth?.user?.hosName || "");
+  const [quantity, setQuantity] = useState("");
   const [location, setLocation] = useState("");
   const [landmark, setLandmark] = useState("");
+  const [category, setCategory] = useState("");
   const [contact, setContact] = useState("");
   const [images, setImages] = useState([]);
 
+  // Handle file input change for images
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    setImages((prevImages) => [...prevImages, ...files]);
+  };
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const foodData = new FormData();
       foodData.append("foodName", foodName);
       foodData.append("description", description);
-      foodData.append("category", category);
-      foodData.append("hostelName", hostelName);
+      foodData.append("quantity", quantity);
       foodData.append("location", location);
       foodData.append("landmark", landmark);
+      foodData.append("category", category);
       foodData.append("contact", contact);
+      foodData.append("userRole", auth?.user?.role); // Add userRole to the payload
+
+      // Conditionally include either 'restaurant' or 'hosName'
+      if (auth?.user?.role === "restaurant") {
+        foodData.append("restaurant", auth?.user?.restaurantName); // Assuming the restaurant name is stored in the user data
+      } else if (auth?.user?.role === "hostel") {
+        foodData.append("hosName", auth?.user?.hosName); // Assuming the hostel name is stored in the user data
+      }
+
+      // Add images to the FormData
       images.forEach((image) => foodData.append("images", image));
-      await getConfig();
-      const { data } = await axiosInstance.post(
-        `/api/v1/food/add-food`,
-        foodData
-      );
+await getConfig()
+      const { data } = await axiosInstance.post(`/api/v1/food/add-food`, foodData); // Update API URL as necessary
+
       if (data?.success) {
-        toast.success("Food Uploaded Successfully");
+        toast.success("Food item added successfully!");
+        // Reset form fields
         setFoodName("");
         setDescription("");
-        setCategory("");
+        setQuantity("");
         setLocation("");
         setLandmark("");
+        setCategory("");
         setContact("");
         setImages([]);
       } else {
-        toast.error("Food Uploaded Failure");
+        toast.error(data.message || "Failed to add food item.");
       }
     } catch (error) {
-      console.log("Failed to upload food", error);
-      toast.error("Something went wrong!!");
+      console.error("Error adding food item:", error);
+      toast.error("An error occurred while adding food.");
     }
-  };
-
-  const handleImageChange = (e) => {
-    setImages(Array.from(e.target.files));
   };
   return (
     <>
@@ -82,8 +143,18 @@ const AddFood = () => {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
+            <div>
+          <label className="block font-medium mb-1">Quantity</label>
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            className="w-full p-2 border rounded-md"
+            required
+          />
+        </div>
 
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="hostel">Select Hostel</label>
               <select
                 id="hostel"
@@ -94,10 +165,10 @@ const AddFood = () => {
                   {auth?.user?.hosName}
                 </option>
               </select>
-            </div>
+            </div> */}
             <div className="form-grid">
               <div className="form-group">
-                <label htmlFor="location">Restaurant Location</label>
+                <label htmlFor="location"> Location</label>
                 <input
                   id="location"
                   type="text"

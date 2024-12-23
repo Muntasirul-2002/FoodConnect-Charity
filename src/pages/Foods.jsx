@@ -6,10 +6,16 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/Auth";
 import img404 from "../image/img-not-found.jpg";
 import { useCart } from "../context/cart";
+import { Button, ConfigProvider, Flex, Popconfirm } from 'antd';
+
+const text = 'Are you sure to delete this task?';
+const description = 'Delete the task';
+const buttonWidth = 80;
 const Foods = () => {
   const [allFoods, setAllFoods] = useState();
   const [auth] = useAuth();
   const [cart, setCart] = useCart();
+  const [hoveredDot, setHoveredDot] = useState(null)
 
   const foodList = async (req, res) => {
     try {
@@ -135,6 +141,10 @@ const Foods = () => {
                       <span>{foods.description.substring(30, 0)} ...</span>
                     </li>
                     <li className="meal-attribute">
+                    <ion-icon name="storefront-outline"></ion-icon>
+                      <span>{foods.hosName ? foods.hosName : foods.restaurant ? foods.restaurant : "Not Specified"}</span>
+                    </li>
+                    <li className="meal-attribute">
                       <ion-icon name="navigate-outline"></ion-icon>
                       <span>
                         {foods.location} <strong>|</strong> near{" "}
@@ -150,19 +160,56 @@ const Foods = () => {
                     <li className="meal-attribute">
                       <ion-icon name="calendar-outline"></ion-icon>
                       <span>
-                        Uploaded :{" "}
-                        <strong>{formatTime(foods.createdAt)}</strong>
-                        <span
-                          className="status-dot"
+                        Uploaded: <strong>{formatTime(foods.createdAt)}</strong>
+                        <div
+                          className="status-dot-wrapper"
                           style={{
-                            backgroundColor: getFreshNess(foods.createdAt),
                             display: "inline-block",
-                            width: "10px",
-                            height: "10px",
-                            borderRadius: "50%",
-                            marginLeft: "5px",
+                            position: "relative",
+                            marginLeft: "10px",
                           }}
-                        ></span>
+                          onMouseEnter={() => setHoveredDot(index)} // Show popover
+                          onMouseLeave={() => setHoveredDot(null)} // Hide popover
+                        >
+                          <span
+                            className="status-dot"
+                            style={{
+                              backgroundColor: getFreshNess(foods.createdAt),
+                              display: "inline-block",
+                              width: "10px",
+                              height: "10px",
+                              borderRadius: "50%",
+                              marginLeft: "5px",
+                            }}
+                          ></span>
+
+                          {/* Popover */}
+                          {hoveredDot === index && (
+                            <div
+                              className="popover"
+                              style={{
+                                position: "absolute",
+                                top: "20px",
+                                left: "-10px",
+                                backgroundColor: "white",
+                                color: "#333",
+                                padding: "5px 10px",
+                                border: "1px solid #ccc",
+                                borderRadius: "5px",
+                                boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                                zIndex: 100,
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              {getFreshNess(foods.createdAt) === "green" &&
+                                "Fresh | Recently Uploaded"}
+                              {getFreshNess(foods.createdAt) === "yellow" &&
+                                "Moderate | Uploaded 1-3 hours ago)"}
+                              {getFreshNess(foods.createdAt) === "red" &&
+                                "Old | Uploaded more than 3 hours ago)"}
+                            </div>
+                          )}
+                        </div>
                       </span>
                     </li>
                   </ul>
