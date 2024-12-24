@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/cart.css";
 import { useAuth } from "../context/Auth";
 import { useCart } from "../context/cart";
@@ -8,6 +8,15 @@ import emptyImg from "../image/empty-cart.webp";
 const Cart = ({ backend_url }) => {
   const [auth] = useAuth();
   const [cart, setCart] = useCart();
+  const [formData, setFormData] = useState({
+    name: "",
+    ngo: "",
+    contact: "",
+    location: "",
+    landmark: "",
+    mapLink: "",
+  });
+
   const openMapSelection = () => {
     const googleMapsURL = "https://www.google.com/maps";
     window.open(googleMapsURL, "_blank", "width=800,height=600");
@@ -35,6 +44,63 @@ const Cart = ({ backend_url }) => {
       toast.error("Error removing item from cart");
     }
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handlePlaceOrder = async () => {
+    try {
+      if (
+        !formData.name ||
+        !formData.ngo ||
+        !formData.contact ||
+        !formData.location
+      ) {
+        return toast.error("Please fill all required fields");
+      }
+      if (cart.length === 0) {
+        return toast.error("Your cart is empty");
+      }
+      const orderData = {
+        foodItem: cart.map((item) => item._id),
+        food_name: cart.map((item) => item.name),
+        buyer: auth?.user?._id,
+        address: {
+          name: formData.name,
+          ngo: formData.ngo,
+          contact: formData.contact,
+          location: formData.location,
+          mapLink: formData.mapLink,
+        },
+      };
+      await getConfig();
+      const { data } = await axiosInstance.post(
+        "/api/v1/order/create-order",
+        orderData
+      );
+      if (data.success) {
+        toast.success(data.message || "Order placed!!");
+        setCart([]);
+        localStorage.removeItem("cart");
+        setFormData({
+          name: "",
+          ngo: "",
+          contact: "",
+          location: "",
+          landmark: "",
+          mapLink: "",
+        });
+      } else {
+        toast.error(data.message || "Failed to create order");
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      toast.error("Something went wrong");
+    }
+  };
+
   return (
     <>
       <div className="cart-page">
@@ -97,31 +163,72 @@ const Cart = ({ backend_url }) => {
           <form>
             <div className="form-group">
               <label htmlFor="name">Name</label>
-              <input type="text" id="name" placeholder="Enter your name" />
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                placeholder="Enter your name"
+              />
             </div>
             <div className="form-group">
               <label htmlFor="ngo">From NGO Name</label>
-              <input type="text" id="ngo" placeholder="Enter NGO name" />
+              <input
+                type="text"
+                id="ngo"
+                name="ngo"
+                value={formData.ngo}
+                onChange={handleChange}
+                placeholder="Enter NGO name"
+              />
             </div>
             <div className="form-group">
               <label htmlFor="contact">Contact</label>
               <input
+                name="contact"
                 type="text"
                 id="contact"
                 placeholder="Enter contact number"
+                value={formData.contact}
+                onChange={handleChange}
+                required
               />
             </div>
             <div className="form-group">
               <label htmlFor="location">Location</label>
-              <input type="text" id="location" placeholder="Enter location" />
+              <input
+                type="text"
+                id="location"
+                name="location"
+                placeholder="Enter location"
+                required
+                value={formData.location}
+                onChange={handleChange}
+              />
             </div>
             <div className="form-group">
               <label htmlFor="landmark">Landmark</label>
-              <input type="text" id="landmark" placeholder="Enter landmark" />
+              <input
+                type="text"
+                id="landmark"
+                name="landmark"
+                value={formData.landmark}
+                onChange={handleChange}
+                placeholder="Enter landmark"
+              />
             </div>
             <div className="form-group">
               <label htmlFor="map">Google Map Selection</label>
-              <input type="text" id="map" placeholder="Google Map link" />
+              <input
+                type="text"
+                id="map"
+                name="mapLink"
+                value={formData.mapLink}
+                onChange={handleChange}
+                placeholder="Google Map link"
+              />
               <button
                 type="button"
                 className="map-button"
@@ -133,7 +240,7 @@ const Cart = ({ backend_url }) => {
           </form>
         </div>
         <div className="place-order">
-          <button type="submit" className="order-button">
+          <button type="submit" onClick={handlePlaceOrder} className="order-button">
             Place Order
           </button>
         </div>

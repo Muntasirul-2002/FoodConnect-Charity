@@ -102,6 +102,9 @@ const Login = () => {
               <Link to={'/reset-password'} className="forgot-pass-link">
                 Forgot Password?
               </Link>
+              <Link to={'/signup'} className="forgot-pass-link">
+              Signup
+              </Link>
               <button type="submit" className="login-button">
                 Login
               </button>
