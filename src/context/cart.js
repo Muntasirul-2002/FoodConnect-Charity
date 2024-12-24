@@ -17,8 +17,8 @@ const CartProvider = ({ children }) => {
       const response = await axiosInstance.post("/api/v1/food/cart/get-food", {
         userID,
       });
-      setCart(response.data.cart);
-      localStorage.setItem("cart", JSON.stringify(response.data.cart));
+      setCart(response.data.cart || []);
+      localStorage.setItem("cart", JSON.stringify(response.data.cart || []));
     } catch (error) {
       console.log("Error in fetching cart products:", error);
     }

@@ -70,7 +70,7 @@ const Foods = () => {
         role: auth?.user?.role,
       });
 
-      const updatedCart = [...cart, data.cart[0]];
+      const updatedCart = [...cart, food];
       setCart(updatedCart);
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       toast.success("Item added in cart");

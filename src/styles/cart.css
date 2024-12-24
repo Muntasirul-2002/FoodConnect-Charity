@@ -6,7 +6,15 @@
     justify-content: center;
     margin-top: 10%;
   }
-  
+  .empty-cart-div{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+
+  .empty-cart-img{
+    
+  }
   /* Cart Items Section */
   .cart-items {
     flex: 1;
