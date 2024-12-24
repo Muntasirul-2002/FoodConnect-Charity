@@ -5,9 +5,11 @@ import { useCart } from "../context/cart";
 import { axiosInstance, getConfig } from "../utils/request";
 import { toast } from "react-hot-toast";
 import emptyImg from "../image/empty-cart.webp";
+import {useNavigate} from 'react-router-dom'
 const Cart = ({ backend_url }) => {
   const [auth] = useAuth();
   const [cart, setCart] = useCart();
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: "",
     ngo: "",
@@ -81,7 +83,6 @@ const Cart = ({ backend_url }) => {
         orderData
       );
       if (data.success) {
-        toast.success(data.message || "Order placed!!");
         setCart([]);
         localStorage.removeItem("cart");
         setFormData({
@@ -92,6 +93,9 @@ const Cart = ({ backend_url }) => {
           landmark: "",
           mapLink: "",
         });
+        toast.success(data.message || "Order placed!!");
+        navigate("/dashboard/ngo")
+
       } else {
         toast.error(data.message || "Failed to create order");
       }

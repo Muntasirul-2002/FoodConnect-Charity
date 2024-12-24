@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -14,11 +14,11 @@ import HostelHomePage from "./HostelDashboard/pages/HostelHomePage";
 import NgoPrivateRoute from "./Routes/NgoRoute";
 import NgoDashboard from "./NgoDashboard/pages/NgoDashboard";
 import FoodDetails from "./pages/FoodDetails";
-import Spinner from "./components/Spinner";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import RestaurantPrivateRoute from "./Routes/RestaurantRoute";
 import RestaurantHomePage from "./RestaurantDashboard/pages/RestaurantHomePage";
 import Cart from "./pages/Cart";
+import Form from "./NgoDashboard/components/Form";
 const App = () => {
   const location = useLocation()
   const isDashboard = location.pathname.includes("/dashboard")
@@ -53,6 +53,7 @@ const App = () => {
         {/* Ngo Dashboard routes */}
         <Route path="/dashboard" element={<NgoPrivateRoute />}>
           <Route path="ngo" element={<NgoDashboard />} />
+          <Route  path="update-order/:id" element={<Form/>}/>
         </Route>
       </Routes>
       {!isDashboard && <Footer />}

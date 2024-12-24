@@ -18,7 +18,7 @@ const NgoDashboard = () => {
       case "collaboration":
         return <Collaboration/>
       case "orders" : 
-        return <Orders/>
+        return <Orders />
       case "view-ngo":
         return <ViewAllNgo/>
     }
