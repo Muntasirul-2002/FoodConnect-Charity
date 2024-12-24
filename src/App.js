@@ -22,6 +22,7 @@ import Cart from "./pages/Cart";
 const App = () => {
   const location = useLocation()
   const isDashboard = location.pathname.includes("/dashboard")
+  const backend_url = "http://localhost:8080"
   return (
     <div>
      {!isDashboard &&  <Navbar />}
@@ -35,7 +36,7 @@ const App = () => {
         <Route path="/causes" element={<Causes />} />
         <Route path="/foods" element={<Foods />} />
         <Route path="/food-details/:slug" element={<FoodDetails/>} />
-        <Route path="/cart" element={<Cart/>} />
+        <Route path="/cart" element={<Cart backend_url={backend_url} />} />
         
 
         {/* //Hostel Dashboard Routes */}

@@ -6,11 +6,8 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/Auth";
 import img404 from "../image/img-not-found.jpg";
 import { useCart } from "../context/cart";
-import { Button, ConfigProvider, Flex, Popconfirm } from 'antd';
 
-const text = 'Are you sure to delete this task?';
-const description = 'Delete the task';
-const buttonWidth = 80;
+
 const Foods = () => {
   const [allFoods, setAllFoods] = useState();
   const [auth] = useAuth();
@@ -168,8 +165,8 @@ const Foods = () => {
                             position: "relative",
                             marginLeft: "10px",
                           }}
-                          onMouseEnter={() => setHoveredDot(index)} // Show popover
-                          onMouseLeave={() => setHoveredDot(null)} // Hide popover
+                          onMouseEnter={() => setHoveredDot(index)} 
+                          onMouseLeave={() => setHoveredDot(null)}
                         >
                           <span
                             className="status-dot"
@@ -183,7 +180,6 @@ const Foods = () => {
                             }}
                           ></span>
 
-                          {/* Popover */}
                           {hoveredDot === index && (
                             <div
                               className="popover"

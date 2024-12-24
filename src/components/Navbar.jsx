@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { IoMdLogIn } from "react-icons/io";
-import { MdAccountCircle } from "react-icons/md";
 import "../styles/navbar.css";
 import { useAuth } from "../context/Auth";
 import { toast } from "react-hot-toast";
@@ -136,7 +135,7 @@ const Navbar = () => {
                       ×
                     </a>
                   </div>
-                  {/* /search popup */}
+                 
                 </div>
                
               </li>
@@ -180,7 +179,7 @@ const Navbar = () => {
                           Dashboard
                         </NavLink>
 
-                        <Link to="/profile" className="avatar-dropdown-item">
+                        <Link to={`/dashboard/${auth?.user?.role}`} className="avatar-dropdown-item">
                           Profile
                         </Link>
                         <NavLink
