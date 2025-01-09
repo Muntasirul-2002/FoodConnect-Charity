@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../style/orders.css";
+import "../styles/order.css";
 import { axiosInstance, getConfig } from "../../utils/request";
 import { useAuth } from "../../context/Auth";
 import { Link, useNavigate } from "react-router-dom";

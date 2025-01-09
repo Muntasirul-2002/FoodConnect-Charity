@@ -24,52 +24,16 @@ const Signup = () => {
     try {
       let data;
       if (selectForm === "ngo") {
-        data = {
-          orgName,
-          email,
-          password,
-          name,
-          mobile,
-          address,
-          memberId,
-          role,
-        };
+        data = {orgName,email,password,name,mobile,address,memberId,role,};
       } else if (selectForm === "restaurant") {
-        data = {
-          resName,
-          email,
-          password,
-          name,
-          address,
-          landmark,
-          phone,
-          role,
-        };
+        data = {resName,email,password,name,address,landmark,phone,role,};
       } else if (selectForm === "hostel") {
-        data = {
-          hosName,
-          email,
-          password,
-          name,
-          address,
-          landmark,
-          phone,
-          role,
-        };
+        data = {hosName,email,password,name,address,landmark,phone,role,};
       }
-
-      const response = await axiosInstance.post(
-        `/api/v1/auth/${selectForm}-signup`,
-        data,
-        await getConfig()
-      );
-
+      await getConfig()
+      const response = await axiosInstance.post(`/api/v1/auth/${selectForm}-signup`,data,);
       if (response && response.data.success) {
-        toast.success(
-          `${
-            selectForm.charAt(0).toUpperCase() + selectForm.slice(1)
-          } signup successful`
-        );
+        toast.success(`${selectForm.charAt(0).toUpperCase() + selectForm.slice(1)} signup successful`);
         navigate("/");
       } else {
         toast.success(response.data.message);

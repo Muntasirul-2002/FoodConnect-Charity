@@ -84,9 +84,9 @@ const AddFood = () => {
 
       // Conditionally include either 'restaurant' or 'hosName'
       if (auth?.user?.role === "restaurant") {
-        foodData.append("restaurant", auth?.user?.restaurantName); // Assuming the restaurant name is stored in the user data
+        foodData.append("restaurant", auth?.user?.user); // Assuming the restaurant name is stored in the user data
       } else if (auth?.user?.role === "hostel") {
-        foodData.append("hosName", auth?.user?.hosName); // Assuming the hostel name is stored in the user data
+        foodData.append("hosName", auth?.user?.user); // Assuming the hostel name is stored in the user data
       }
 
       // Add images to the FormData

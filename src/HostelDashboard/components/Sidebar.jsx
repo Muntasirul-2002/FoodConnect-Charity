@@ -15,6 +15,7 @@ const Sidebar = ({ isOpen, setActivePage, toggleSidebar }) => {
       <button onClick={() => handleClick("add")}>Add</button>
       <button onClick={() => handleClick("profile")}>Profile</button>
       <button onClick={() => handleClick("user")}>Users</button>
+      <button onClick={()=> handleClick("orders")}>Orders</button>
     </div>
   );
 };

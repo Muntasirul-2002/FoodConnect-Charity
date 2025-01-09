@@ -54,13 +54,13 @@ const Login = () => {
               ? "NGO Login"
               : selectForm === "hostel"
               ? "Hostel Login"
-              : "Admin Login"}
+              : "Login"}
           </h2>
           <div className="social-login">
-            <button className="social-button">
+            {/* <button className="social-button">
               <img src={facebook} alt="facebook" className="social-icon" />
               <span>Facebook</span>
-            </button>
+            </button> */}
           </div>
           <p className="separator">
             <span>or</span>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../style/orders.css";
+import "../../HostelDashboard/styles/order.css";
 import { axiosInstance, getConfig } from "../../utils/request";
 import { useAuth } from "../../context/Auth";
 import { Link, useNavigate } from "react-router-dom";
@@ -65,6 +65,7 @@ const Orders = () => {
           <div className="rounded">
             <div className="table-responsive table-borderless">
               <table className="table">
+                <h3>Restaurant orders</h3>
                 <thead>
                   {getOrder.length > 0 ? (
                     <tr>

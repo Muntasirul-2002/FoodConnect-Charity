@@ -4,6 +4,7 @@ import Dashboard from './Dashboard';
 import AddFood from './AddFood';
 import ProfilePage from './ProfilePage';
 import UserTable from './UserTable';
+import Orders from './Orders';
 
 const RestaurantHomePage = () => {
     const [activePage, setActivePage] = useState("home");
@@ -23,6 +24,8 @@ const RestaurantHomePage = () => {
           return <ProfilePage />;
         case "user":
           return <UserTable/>
+        case "orders":
+          return <Orders/>
         default:
           return <AddFood />;
       }

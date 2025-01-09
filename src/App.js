@@ -19,6 +19,7 @@ import RestaurantPrivateRoute from "./Routes/RestaurantRoute";
 import RestaurantHomePage from "./RestaurantDashboard/pages/RestaurantHomePage";
 import Cart from "./pages/Cart";
 import Form from "./NgoDashboard/components/Form";
+import AdminLogin from "./pages/auth/AdminLogin";
 const App = () => {
   const location = useLocation()
   const isDashboard = location.pathname.includes("/dashboard")
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin-auth" element={<AdminLogin/>} />
         <Route path="/reset-password" element={<ForgotPassword/>} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/causes" element={<Causes />} />

@@ -5,6 +5,7 @@ import ProfilePage from "./ProfilePage";
 import "../../styles/dashboard.css";
 import Dashboard from "./Dashboard";
 import UserTable from "./UserTable";
+import Orders from "./Orders";
 const HostelHomePage = () => {
   const [activePage, setActivePage] = useState("home");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -23,6 +24,8 @@ const HostelHomePage = () => {
         return <ProfilePage />;
       case "user":
         return <UserTable/>
+      case "orders":
+        return <Orders/>
       default:
         return <AddFood />;
     }
