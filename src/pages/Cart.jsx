@@ -52,6 +52,64 @@ const Cart = ({ backend_url }) => {
     setFormData({ ...formData, [name]: value });
   };
 
+  // const handlePlaceOrder = async () => {
+  //   try {
+  //     if (
+  //       !formData.name ||
+  //       !formData.ngo ||
+  //       !formData.contact ||
+  //       !formData.location
+  //     ) {
+  //       return toast.error("Please fill all required fields");
+  //     }
+  //     if (cart.length === 0) {
+  //       return toast.error("Your cart is empty");
+  //     }
+  //     const orderData = {
+  //       foodItem: cart.map((item) => item._id),
+  //       food_name: cart.map((item) => item.name),
+  //       buyer: auth?.user?._id,
+  //       address: {
+  //         name: formData.name,
+  //         ngo: formData.ngo,
+  //         contact: formData.contact,
+  //         location: formData.location,
+  //         mapLink: formData.mapLink,
+  //       },
+  //       sellerRole: auth?.user?.role,
+  //     };
+  //     if (auth?.user?.role === "restaurant") {
+  //       orderData.seller_restaurant = auth?.user?.resName;
+  //     } else if (auth?.user?.role === "hostel") {
+  //       orderData.seller_hostel = auth?.user?.hosName;
+  //     }
+  //     await getConfig();
+  //     const { data } = await axiosInstance.post(
+  //       "/api/v1/order/create-order",
+  //       orderData
+  //     );
+  //     if (data.success) {
+  //       setCart([]);
+  //       localStorage.removeItem("cart");
+  //       setFormData({
+  //         name: "",
+  //         ngo: "",
+  //         contact: "",
+  //         location: "",
+  //         landmark: "",
+  //         mapLink: "",
+  //       });
+  //       toast.success(data.message || "Order placed!!");
+  //       navigate("/dashboard/ngo")
+
+  //     } else {
+  //       toast.error(data.message || "Failed to create order");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error placing order:", error);
+  //     toast.error("Something went wrong");
+  //   }
+  // };
   const handlePlaceOrder = async () => {
     try {
       if (
@@ -65,10 +123,18 @@ const Cart = ({ backend_url }) => {
       if (cart.length === 0) {
         return toast.error("Your cart is empty");
       }
+  
+      const sellerRole = auth?.user?.role; // Assuming user role is stored in auth
+  
+      if (!sellerRole) {
+        return toast.error("Seller role is missing");
+      }
+  
       const orderData = {
         foodItem: cart.map((item) => item._id),
         food_name: cart.map((item) => item.name),
         buyer: auth?.user?._id,
+        sellerRole,
         address: {
           name: formData.name,
           ngo: formData.ngo,
@@ -77,11 +143,20 @@ const Cart = ({ backend_url }) => {
           mapLink: formData.mapLink,
         },
       };
+  
+      // Include seller-specific details based on role
+      if (sellerRole === "restaurant") {
+        orderData.seller_restaurant = auth?.user?.restaurantName || "Unknown";
+      } else if (sellerRole === "hostel") {
+        orderData.seller_hostel = auth?.user?.hostelName || "Unknown";
+      }
+  
       await getConfig();
       const { data } = await axiosInstance.post(
         "/api/v1/order/create-order",
         orderData
       );
+  
       if (data.success) {
         setCart([]);
         localStorage.removeItem("cart");
@@ -94,8 +169,7 @@ const Cart = ({ backend_url }) => {
           mapLink: "",
         });
         toast.success(data.message || "Order placed!!");
-        navigate("/dashboard/ngo")
-
+        navigate("/dashboard/ngo");
       } else {
         toast.error(data.message || "Failed to create order");
       }
@@ -104,7 +178,7 @@ const Cart = ({ backend_url }) => {
       toast.error("Something went wrong");
     }
   };
-
+  
   return (
     <>
       <div className="cart-page">
