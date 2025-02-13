@@ -4,11 +4,13 @@ import { axiosInstance, getConfig } from "../../utils/request";
 import { useAuth } from "../../context/Auth";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Modal } from "antd";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const Orders = () => {
   const [getOrder, setGetOrder] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [canceledOrders, setCanceledOrders] = useState(new Set());
   const navigate = useNavigate();
   const [auth] = useAuth();
 
@@ -28,7 +30,30 @@ const Orders = () => {
   useEffect(() => {
     if (auth?.token) GetOrders();
   }, [auth?.token]);
-
+  const cancelOrder = async (orderId) => {
+    Modal.confirm({
+      title: "Are you sure you want to cancel this order?",
+      content: "This action cannot be undone",
+      okText: "Yes,Cancel",
+      cancelText: "NO",
+      onOk: async () => {
+        try {
+          const response = await axiosInstance.put(
+            `/api/v1/order/update-order-status/${orderId}`,
+            { status: "Cancel" }
+          );
+          if (response.data.success) {
+            toast.success("Order Canceled Successfully");
+            setCanceledOrders((prev) => new Set(prev).add(orderId));
+            GetOrders();
+          }
+        } catch (error) {
+          toast.error("Failed to cancel order");
+          console.log("Error cancelling order :", error);
+        }
+      },
+    });
+  };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     let day = date.getDate();
@@ -111,10 +136,20 @@ const Orders = () => {
                           </a>
                         </td>
                         <td>
-                          <button className="order-cancel-btn">cancel</button>
-                          <Link to={`/dashboard/update-order/${order._id}`}>
-                            <button className="order-update-btn">Update</button>
-                          </Link>
+                          {order.status !== "Cancel" &&
+                          !canceledOrders.has(order._id) ? (
+                            <Button
+                              type="text"
+                              danger
+                              onClick={() => cancelOrder(order._id)}
+                            >
+                              Cancel Order
+                            </Button>
+                          ) : (
+                            <Button type="dashed" danger disabled>
+                              Cancelled
+                            </Button>
+                          )}
                         </td>
                       </tr>
                     </tbody>

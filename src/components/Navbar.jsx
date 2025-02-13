@@ -178,7 +178,6 @@ const Navbar = () => {
                         >
                           Dashboard
                         </NavLink>
-
                         <Link to={`/dashboard/${auth?.user?.role}`} className="avatar-dropdown-item">
                           Profile
                         </Link>

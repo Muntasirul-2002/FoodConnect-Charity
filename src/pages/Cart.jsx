@@ -130,7 +130,7 @@ const Cart = ({ backend_url }) => {
         return toast.error("Seller role is missing");
       }
   
-      const orderData = {
+       const orderData = {
         foodItem: cart.map((item) => item._id),
         food_name: cart.map((item) => item.name),
         buyer: auth?.user?._id,

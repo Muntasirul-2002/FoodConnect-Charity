@@ -1,109 +1,91 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/addfood.css";
 import { getConfig, axiosInstance } from "../../utils/request";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../../context/Auth";
+
 const AddFood = () => {
-  const [auth, setAuth] = useAuth();
-  // const [foodName, setFoodName] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [category, setCategory] = useState("");
-  // const [hostelName, setHostelName] = useState(auth?.user?.hosName || "");
-  // const [location, setLocation] = useState("");
-  // const [landmark, setLandmark] = useState("");
-  // const [contact, setContact] = useState("");
-  // const [images, setImages] = useState([]);
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const foodData = new FormData();
-  //     foodData.append("foodName", foodName);
-  //     foodData.append("description", description);
-  //     foodData.append("category", category);
-  //     foodData.append("hostelName", hostelName);
-  //     foodData.append("location", location);
-  //     foodData.append("landmark", landmark);
-  //     foodData.append("contact", contact);
-  //     images.forEach((image) => foodData.append("images", image));
-  //     await getConfig();
-  //     const { data } = await axiosInstance.post(
-  //       `/api/v1/food/add-food`,
-  //       foodData
-  //     );
-  //     if (data?.success) {
-  //       toast.success("Food Uploaded Successfully");
-  //       setFoodName("");
-  //       setDescription("");
-  //       setCategory("");
-  //       setLocation("");
-  //       setLandmark("");
-  //       setContact("");
-  //       setImages([]);
-  //     } else {
-  //       toast.error("Food Uploaded Failure");
-  //     }
-  //   } catch (error) {
-  //     console.log("Failed to upload food", error);
-  //     toast.error("Something went wrong!!");
-  //   }
-  // };
-
-  // const handleImageChange = (e) => {
-  //   setImages(Array.from(e.target.files));
-  // };
-
-  const [foodName, setFoodName] = useState("");
-  const [description, setDescription] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [location, setLocation] = useState("");
-  const [landmark, setLandmark] = useState("");
-  const [category, setCategory] = useState("");
-  const [contact, setContact] = useState("");
+  const [auth] = useAuth();
+  const [formData, setFormData] = useState({
+    foodName: "",
+    description: "",
+    quantity: "",
+    hostelName: "",
+    sellerId: "",
+    location: "",
+    landmark: "",
+    category: "",
+    contact: "",
+  });
   const [images, setImages] = useState([]);
 
-  // Handle file input change for images
+  // Set hostelName from auth when component mounts or auth changes
+  useEffect(() => {
+    if (auth?.user?.hosName) {
+      setFormData(prev => ({
+        ...prev,
+        hostelName: auth.user.hosName || "",
+        sellerId : auth.user._id || "",
+        location : auth.user.address || "",
+        landmark : auth.user.landmark || "",
+        contact : auth.user.phone || "",
+      }));
+    }
+  }, [auth?.user]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     setImages((prevImages) => [...prevImages, ...files]);
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const foodData = new FormData();
-      foodData.append("foodName", foodName);
-      foodData.append("description", description);
-      foodData.append("quantity", quantity);
-      foodData.append("location", location);
-      foodData.append("landmark", landmark);
-      foodData.append("category", category);
-      foodData.append("contact", contact);
-      foodData.append("userRole", auth?.user?.role); // Add userRole to the payload
+      
+      // Append all form data
+      Object.entries(formData).forEach(([key, value]) => {
+        foodData.append(key, value);
+      });
 
-      // Conditionally include either 'restaurant' or 'hosName'
-      if (auth?.user?.role === "restaurant") {
-        foodData.append("restaurant", auth?.user?.user); // Assuming the restaurant name is stored in the user data
-      } else if (auth?.user?.role === "hostel") {
-        foodData.append("hosName", auth?.user?.user); // Assuming the hostel name is stored in the user data
+      // Append images
+      images.forEach((image) => {
+        foodData.append("images", image);
+      });
+
+      // Log FormData contents for debugging
+      for (let pair of foodData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
       }
 
-      // Add images to the FormData
-      images.forEach((image) => foodData.append("images", image));
-await getConfig()
-      const { data } = await axiosInstance.post(`/api/v1/food/add-food`, foodData); // Update API URL as necessary
+      await getConfig();
+      const { data } = await axiosInstance.post(
+        "/api/v1/food/add-food",
+        foodData
+      );
 
       if (data?.success) {
         toast.success("Food item added successfully!");
-        // Reset form fields
-        setFoodName("");
-        setDescription("");
-        setQuantity("");
-        setLocation("");
-        setLandmark("");
-        setCategory("");
-        setContact("");
+        // Reset form
+        setFormData({
+          foodName: "",
+          description: "",
+          quantity: "",
+          hostelName: auth?.user?.hosName || "NA",
+          sellerId: auth?.user?._id || "NA",
+          location: auth?.user?.address || "NA",
+          landmark: auth?.user?.landmark || "NA",
+          category: "",
+          contact: auth?.user?.phone || "NA",
+        });
         setImages([]);
       } else {
         toast.error(data.message || "Failed to add food item.");
@@ -113,127 +95,156 @@ await getConfig()
       toast.error("An error occurred while adding food.");
     }
   };
+
   return (
-    <>
-      <div className="form-container">
-        <div className="form-card">
-          <div className="form-header">
-            <h2>Add New Food Item</h2>
+    <div className="form-container">
+      <div className="form-card">
+        <div className="form-header">
+          <h2>Add New Food Item</h2>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-grid">
+            <div className="form-group">
+              <label htmlFor="foodName">Food Name</label>
+              <input
+                id="foodName"
+                name="foodName"
+                value={formData.foodName}
+                onChange={handleChange}
+                type="text"
+                placeholder="Food Name"
+                required
+              />
+            </div>
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className="form-grid">
-              <div className="form-group">
-                <label htmlFor="name">Food Name</label>
-                <input
-                  id="name"
-                  value={foodName}
-                  onChange={(e) => setFoodName(e.target.value)}
-                  type="text"
-                  placeholder="Food Name"
-                />
-              </div>
-            </div>
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <textarea
-                id="description"
-                rows={4}
-                cols={4}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-            <div>
-          <label className="block font-medium mb-1">Quantity</label>
-          <input
-            type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            className="w-full p-2 border rounded-md"
-            required
-          />
-        </div>
 
-            {/* <div className="form-group">
-              <label htmlFor="hostel">Select Hostel</label>
-              <select
-                id="hostel"
-                value={hostelName}
-                onChange={(e) => setHostelName(e.target.value)}
-              >
-                <option value={auth?.user?.hosName}>
-                  {auth?.user?.hosName}
-                </option>
-              </select>
-            </div> */}
-            <div className="form-grid">
-              <div className="form-group">
-                <label htmlFor="location"> Location</label>
-                <input
-                  id="location"
-                  type="text"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  placeholder="Restaurant Location"
-                />
-              </div>
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              rows={4}
+              cols={4}
+              value={formData.description}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-              <div className="form-group">
-                <label htmlFor="landmark">Landmark</label>
-                <input
-                  id="landmark"
-                  type="text"
-                  step="0.01"
-                  value={landmark}
-                  onChange={(e) => setLandmark(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="form-group">
-              <label htmlFor="category">Select Category</label>
-              <select
-                id="category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                <option value="">Select a Food Category</option>
-                <option value="veg">Veg</option>
-                <option value="non-veg">Non-Veg</option>
-              </select>
-            </div>
+          <div className="form-group">
+            <label htmlFor="quantity">Quantity(KG)</label>
+            <input
+              id="quantity"
+              name="quantity"
+              type="number"
+              value={formData.quantity}
+              onChange={handleChange}
+              className="w-full p-2 border rounded-md"
+              required
+            />
+          </div>
 
+          <div className="form-group">
+            <label htmlFor="hostelName">Hostel</label>
+            <input
+              id="hostelName"
+              name="hostelName"
+              type="text"
+              value={formData.hostelName}
+              readOnly
+              className="bg-gray-100"
+            />
+          </div>
+
+          <div className="form-grid">
             <div className="form-group">
-              <label htmlFor="file-upload">Food Image</label>
+              <label htmlFor="location">Location</label>
               <input
-                id="file-upload"
-                type="file"
-                multiple
-                onChange={handleImageChange}
-                accept="image/*"
-                className="file-input"
+                id="location"
+                name="location"
+                type="text"
+                value={formData.location}
+                onChange={handleChange}
+                placeholder="Restaurant Location"
+                required
+              />
+            </div>
+            </div>
+            <div className="form-grid">
+            <div className="form-group">
+              <label htmlFor="location">YourID</label>
+              <input
+                id="sellerId"
+                name="sellerId"
+                type="text"
+                value={formData.sellerId}
+                onChange={handleChange}
+                placeholder="Seller ID"
+                required
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="contact">Contact Details</label>
+              <label htmlFor="landmark">Landmark</label>
               <input
-               required
-                id="contact"
-                value={contact}
-                onChange={(e) => setContact(e.target.value)}
-                type="number"
+                id="landmark"
+                name="landmark"
+                type="text"
+                value={formData.landmark}
+                onChange={handleChange}
+                required
               />
             </div>
+          </div>
 
-            <center>
-              <button type="submit" className="add-food-btn">
-                Upload Food Item
-              </button>
-            </center>
-          </form>
-        </div>
+          <div className="form-group">
+            <label htmlFor="category">Select Category</label>
+            <select
+              id="category"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select a Food Category</option>
+              <option value="veg">Veg</option>
+              <option value="non-veg">Non-Veg</option>
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="file-upload">Food Image</label>
+            <input
+              id="file-upload"
+              type="file"
+              multiple
+              onChange={handleImageChange}
+              accept="image/*"
+              className="file-input"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="contact">Contact Details</label>
+            <input
+              id="contact"
+              name="contact"
+              type="number"
+              value={formData.contact}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <center>
+            <button type="submit" className="add-food-btn">
+              Upload Food Item
+            </button>
+          </center>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 

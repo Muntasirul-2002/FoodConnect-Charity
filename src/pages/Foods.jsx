@@ -139,7 +139,7 @@ const Foods = () => {
                     </li>
                     <li className="meal-attribute">
                     <ion-icon name="storefront-outline"></ion-icon>
-                      <span>{foods.hosName ? foods.hosName : foods.restaurant ? foods.restaurant : "Not Specified"}</span>
+                      <span>{foods.hostelName ? foods.hostelName : foods.restaurant ? foods.restaurant : "Not Specified"}</span>
                     </li>
                     <li className="meal-attribute">
                       <ion-icon name="navigate-outline"></ion-icon>
