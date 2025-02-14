@@ -308,7 +308,7 @@ const Signup = () => {
                       rows={4}
                       cols={4}
                       style={{ width: "100%", height: "90%" }}
-                      placeholder="Restaurant address"
+                      placeholder="Hostel address"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                       required

@@ -17,11 +17,12 @@ const Orders = () => {
   const GetOrders = async () => {
     try {
       await getConfig();
-      const response = await axiosInstance.get("/api/v1/order/get-orders", {
-        userID: auth?.user?._id,
-      });
-      console.log(response.data);
-      setGetOrder(response.data);
+      const response = await axiosInstance.get(`/api/v1/order/get-orders/${auth?.user?._id}`)
+      if(response.data.success){
+        setGetOrder(response.data.orders)
+      }else{
+        toast.error(response.data.message)
+      }
     } catch (error) {
       console.log("Error in getting orders: ", error);
     }
@@ -111,7 +112,7 @@ const Orders = () => {
                     <tbody className="table-body" key={order._id}>
                       <tr className="cell-1">
                         <td className="text-center"></td>
-                        <td># {order._id.substring(8, 0)}..</td>
+                        <td># {order._id}</td>
                         <td>
                           {Array.isArray(order.food_name)
                             ? order.food_name.join(", ")
@@ -136,7 +137,7 @@ const Orders = () => {
                           </a>
                         </td>
                         <td>
-                          {order.status !== "Cancel" &&
+                          {order.status !== "Cancel" && order.status !== "Delivered" &&
                           !canceledOrders.has(order._id) ? (
                             <Button
                               type="text"

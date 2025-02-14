@@ -16,11 +16,12 @@ const Orders = () => {
   const GetOrders = async () => {
     try {
       await getConfig();
-      const response = await axiosInstance.get("/api/v1/order/get-orders", {
-        params :{ userID: auth?.user?._id},
-      });
-      console.log(response.data);
-      setGetOrder(response.data);
+      const response = await axiosInstance.get(`/api/v1/order/get-orders/${auth?.user?._id}`)
+      if (response.data.success) {
+        setGetOrder(response.data.orders);
+      } else {
+        toast.error(response.data.message);
+      }
     } catch (error) {
       console.log("Error in getting orders: ", error);
     }
@@ -94,6 +95,9 @@ const Orders = () => {
                         <th>Status</th>
                         <th>Placed on</th>
                         <th>Delivery location</th>
+                        <th>NGO Name</th>
+                        <th>NGO Address</th>
+                        <th>NGO Contact</th>
                         <th>Action</th>
                       </tr>
                     ) : null}
@@ -103,7 +107,10 @@ const Orders = () => {
                       <tbody className="table-body" key={order._id}>
                         <tr className="cell-1">
                           <td className="text-center"></td>
-                          <td># {order._id.substring(8, 0)}..</td>
+                          {/* <td># {order._id.substring(8, 0)}..</td> */}
+                          <td>
+                            #{order._id}
+                          </td>
                           <td>
                             {Array.isArray(order.food_name)
                               ? order.food_name.join(", ")
@@ -127,11 +134,21 @@ const Orders = () => {
                             </a>
                           </td>
                           <td>
+                          {order.address.ngo}
+                          </td>
+                          <td>
+                            {order.address.location}
+                          </td>
+                          <td>
+                            {order.address.contact}
+                          </td>
+                          <td>
                             <Select
                               defaultValue={order.status}
                               style={{ width: 150 }}
                               onChange={(value) => updateOrderStatus(order._id, value)}
                               loading={loading}
+                              disabled={order.status === "Delivered" || order.status === "Cancel"}
                             >
                               <Option value="Not Process">Not Process</Option>
                               <Option value="UnProcessed">UnProcessed</Option>
