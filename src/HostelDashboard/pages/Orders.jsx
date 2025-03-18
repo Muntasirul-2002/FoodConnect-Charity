@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import "../styles/order.css";
 import { axiosInstance, getConfig } from "../../utils/request";
 import { useAuth } from "../../context/Auth";
-import { Link, useNavigate } from "react-router-dom";
-import { Button, message, Select } from "antd";
+import {Select } from "antd";
 import toast from "react-hot-toast";
 
 const { Option } = Select;
 const Orders = () => {
   const [getOrder, setGetOrder] = useState([]);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const [auth] = useAuth();
 
   const GetOrders = async () => {
@@ -39,7 +37,7 @@ const Orders = () => {
 
       setGetOrder((prevOrders) =>
         prevOrders.map((order) =>
-          order._id == orderId ? { ...order, status: newStatus } : order
+          order._id === orderId ? { ...order, status: newStatus } : order
         )
       );
       toast.success("Order Status Updated Successfully")

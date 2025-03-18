@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from "react";
-import "../style/orders.css";
+import "../styles/admins.css";
 import { axiosInstance, getConfig } from "../../utils/request";
-import { useAuth } from "../../context/Auth";
-import { Button, Modal } from "antd";
 import toast from "react-hot-toast";
-
-const Orders = () => {
+import { Button, Select } from "antd";
+const CheckOrders = () => {
   const [getOrder, setGetOrder] = useState([]);
   const [canceledOrders, setCanceledOrders] = useState(new Set());
-  const [auth] = useAuth();
-
+  const [loading, setLoading] = useState(false);
   const GetOrders = async () => {
     try {
       await getConfig();
-      const response = await axiosInstance.get(`/api/v1/order/get-orders/${auth?.user?._id}`)
-      if(response.data.success){
-        setGetOrder(response.data.orders)
-      }else{
-        toast.error(response.data.message)
+      const response = await axiosInstance.get(`/api/v1/order/get-orders`);
+      if (response.data.success) {
+        setGetOrder(response.data.orders);
+      } else {
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.log("Error in getting orders: ", error);
@@ -25,8 +22,8 @@ const Orders = () => {
   };
 
   useEffect(() => {
-    if (auth?.token) GetOrders();
-  }, [auth?.token]);
+    GetOrders();
+  }, []);
   const cancelOrder = async (orderId) => {
     Modal.confirm({
       title: "Are you sure you want to cancel this order?",
@@ -50,6 +47,26 @@ const Orders = () => {
         }
       },
     });
+  };
+  const updateOrderStatus = async (orderId, newStatus) => {
+    try {
+      setLoading(true);
+      await axiosInstance.put(`/api/v1/order/update-order-status/${orderId}`, {
+        status: newStatus,
+      });
+
+      setGetOrder((prevOrders) =>
+        prevOrders.map((order) =>
+          order._id === orderId ? { ...order, status: newStatus } : order
+        )
+      );
+      toast.success("Order Status Updated Successfully")
+    } catch (error) {
+      console.log("Error updating order  status:", error)
+      toast.error("Failed to update order status")
+    }finally{
+      setLoading(false)
+    }
   };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -93,9 +110,12 @@ const Orders = () => {
                       <th className="text-center"></th>
                       <th>Order #</th>
                       <th>Item name</th>
+                      <th>Buyer Id</th>
+                      <th>seller Id</th>
                       <th>status</th>
                       <th>Placed on</th>
                       <th>Delivery location</th>
+                      <th>Update</th>
                       <th>Action</th>
                       <th />
                     </tr>
@@ -113,6 +133,16 @@ const Orders = () => {
                           {Array.isArray(order.food_name)
                             ? order.food_name.join(", ")
                             : order.food_name}
+                        </td>
+                        <td>
+                          <textarea style={{ width: "100px" }}>
+                            {order.buyer}
+                          </textarea>
+                        </td>
+                        <td>
+                          <textarea style={{ width: "100px" }}>
+                            {order.sellerId}
+                          </textarea>
                         </td>
 
                         <td>
@@ -133,7 +163,24 @@ const Orders = () => {
                           </a>
                         </td>
                         <td>
-                          {order.status !== "Cancel" && order.status !== "Delivered" &&
+                            <Select
+                              defaultValue={order.status}
+                              style={{ width: 150 }}
+                              onChange={(value) => updateOrderStatus(order._id, value)}
+                              loading={loading}
+                              disabled={order.status === "Delivered" || order.status === "Cancel"}
+                            >
+                              <Option value="Not Process">Not Process</Option>
+                              <Option value="UnProcessed">UnProcessed</Option>
+                              <Option value="Packaging">Packaging</Option>
+                              <Option value="Shipped">Shipped</Option>
+                              <Option value="Delivered">Delivered</Option>
+                              <Option value="Cancel">Cancel</Option>
+                            </Select>
+                          </td>
+                        <td>
+                          {order.status !== "Cancel" &&
+                          order.status !== "Delivered" &&
                           !canceledOrders.has(order._id) ? (
                             <Button
                               type="text"
@@ -165,4 +212,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default CheckOrders;

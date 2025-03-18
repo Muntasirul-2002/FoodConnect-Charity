@@ -23,7 +23,7 @@ const Spinner = ({path="login"}) => {
 
   return (
    <>
-    <div class="loader"></div>
+    <div className="loader"></div>
     <h2 className='spinner-text'>{`You Don't have access to Dashboard. Redirect to login in ${count} seconds... `} </h2>
    </>
     

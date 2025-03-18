@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import facebook from "../../image/facebook.svg";
 import "../../styles/adminlogin.css";
 import { axiosInstance, getConfig } from "../../utils/request";
 import { toast } from "react-hot-toast";
@@ -54,17 +53,8 @@ const Login = () => {
               ? "NGO Login"
               : selectForm === "hostel"
               ? "Hostel Login"
-              : "Login"}
+              : "Admin Login"}
           </h2>
-          <div className="social-login">
-            {/* <button className="social-button">
-              <img src={facebook} alt="facebook" className="social-icon" />
-              <span>Facebook</span>
-            </button> */}
-          </div>
-          <p className="separator">
-            <span>or</span>
-          </p>
           <div>
             <div className="input-wrapper mb-4">
               <span className="details">Select Login Type</span>

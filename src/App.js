@@ -20,42 +20,46 @@ import RestaurantHomePage from "./RestaurantDashboard/pages/RestaurantHomePage";
 import Cart from "./pages/Cart";
 import Form from "./NgoDashboard/components/Form";
 import AdminLogin from "./pages/auth/AdminLogin";
+import AdminPrivateRoute from "./Routes/AdminRoute";
+import AdminDashboard from "./Admin/AdminDashboard";
 const App = () => {
-  const location = useLocation()
-  const isDashboard = location.pathname.includes("/dashboard")
-  const backend_url = "http://localhost:8080"
+  const location = useLocation();
+  const isDashboard = location.pathname.includes("/dashboard");
+  const backend_url = "http://localhost:8080";
   return (
     <div>
-     {!isDashboard &&  <Navbar />}
+      {!isDashboard && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin-auth" element={<AdminLogin/>} />
-        <Route path="/reset-password" element={<ForgotPassword/>} />
+        <Route path="/admin-auth" element={<AdminLogin />} />
+        <Route path="/reset-password" element={<ForgotPassword />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/causes" element={<Causes />} />
         <Route path="/foods" element={<Foods />} />
-        <Route path="/food-details/:slug" element={<FoodDetails/>} />
+        <Route path="/food-details/:slug" element={<FoodDetails />} />
         <Route path="/cart" element={<Cart backend_url={backend_url} />} />
-        
 
+        {/* Admin dashboard routes */}
+        <Route path="/dashboard" element={<AdminPrivateRoute />}>
+          <Route path="admin" element={<AdminDashboard/>} />
+        </Route>
         {/* //Hostel Dashboard Routes */}
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="hostel" element={<HostelHomePage />} />
         </Route>
 
         {/* Restaurant Dashboard Routes */}
-        <Route path="/dashboard" element={<RestaurantPrivateRoute/>}>
-        <Route path="restaurant" element={<RestaurantHomePage/>}/>
+        <Route path="/dashboard" element={<RestaurantPrivateRoute />}>
+          <Route path="restaurant" element={<RestaurantHomePage />} />
         </Route>
-
 
         {/* Ngo Dashboard routes */}
         <Route path="/dashboard" element={<NgoPrivateRoute />}>
           <Route path="ngo" element={<NgoDashboard />} />
-          <Route  path="update-order/:id" element={<Form/>}/>
+          <Route path="update-order/:id" element={<Form />} />
         </Route>
       </Routes>
       {!isDashboard && <Footer />}

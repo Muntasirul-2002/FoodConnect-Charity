@@ -1,12 +1,8 @@
 import { useContext, createContext, useEffect, useState } from "react";
 import { axiosInstance, getConfig } from "../utils/request";
-
 const CartContext = createContext();
-
 const CartProvider = ({ children }) => {
-  
   const [cart, setCart] = useState(() => {
-    // Initialize cart from localStorage if it exists
     const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : [];
   });

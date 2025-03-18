@@ -16,7 +16,7 @@ const Signup = () => {
   const [landmark, setLandmark] = useState("");
   const [phone, setPhone] = useState("");
   const [hosName, setHosName] = useState("");
-  const [role, setRole] = useState("owner");
+  const [role, setRole] = useState("ngo");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {

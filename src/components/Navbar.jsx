@@ -11,8 +11,8 @@ import { BsCartCheck } from "react-icons/bs";
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [auth, setAuth] = useAuth();
-  const [cart, setCart] = useCart()
-  const navigate = useNavigate()
+  const [cart, setCart] = useCart();
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -27,7 +27,7 @@ const Navbar = () => {
     localStorage.removeItem("auth");
     localStorage.removeItem("cart");
     localStorage.clear();
-    setCart([])
+    setCart([]);
     toast.success("Logged out");
   };
 
@@ -45,8 +45,6 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
- 
 
   return (
     <header id="site-header" className="fixed-top">
@@ -135,17 +133,15 @@ const Navbar = () => {
                       ×
                     </a>
                   </div>
-                 
                 </div>
-               
               </li>
-             <div className="count-cart">
-             <NavLink to="/cart">
-             <Badge count={cart?.length} >
-              <BsCartCheck className="cart-badge" />
-              </Badge>
-             </NavLink>
-             </div>
+              <div className="count-cart">
+                <NavLink to="/cart">
+                  <Badge count={cart?.length}>
+                    <BsCartCheck className="cart-badge" />
+                  </Badge>
+                </NavLink>
+              </div>
               {auth.user ? (
                 <>
                   <li className="nav-item avatar-dropdown">
@@ -154,12 +150,13 @@ const Navbar = () => {
                         src="https://avatar.iran.liara.run/public/boy"
                         height={38}
                         width={38}
-                        alt=""
+                        alt="admin"
                       />
-                    
-                      Welcome, {auth?.user?.name.substring(4,0)}...
-                     
-                     
+                      Welcome,{" "}
+                      {auth?.user?.name
+                        ? auth?.user?.name.substring(4, 0)
+                        : auth?.user?.email.substring(4, 0)}
+                      {/* {auth?.user?.name.substring(4,0)}... */}
                     </div>
                     {isDropdownOpen && (
                       <div className="avatar-dropdown-menu">
@@ -172,13 +169,18 @@ const Navbar = () => {
                               ? "ngo"
                               : auth?.user?.role === "restaurant"
                               ? "restaurant"
+                              : auth?.user?.role === "admin"
+                              ? "admin"
                               : ""
                           }`}
                           className="avatar-dropdown-item"
                         >
                           Dashboard
                         </NavLink>
-                        <Link to={`/dashboard/${auth?.user?.role}`} className="avatar-dropdown-item">
+                        <Link
+                          to={`/dashboard/${auth?.user?.role}`}
+                          className="avatar-dropdown-item"
+                        >
                           Profile
                         </Link>
                         <NavLink
