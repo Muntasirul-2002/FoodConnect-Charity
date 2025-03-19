@@ -21,6 +21,7 @@ const NgoDashboard = () => {
         return <Orders />
       case "view-ngo":
         return <ViewAllNgo/>
+      default : return null
     }
   };
   return (

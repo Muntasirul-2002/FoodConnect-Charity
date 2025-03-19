@@ -29,11 +29,10 @@ const UserTable = () => {
         <table className="user-table">
           <thead>
             <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Role</th>
-              <th>Actions</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Role</th>
             </tr>
           </thead>
           <tbody>
@@ -46,10 +45,6 @@ const UserTable = () => {
                   <span className={`role-badge ${user.role.toLowerCase()}`}>
                     {user.role}
                   </span>
-                </td>
-                <td data-label="Actions">
-                  <button className="action-button edit">Edit</button>
-                  <button className="action-button delete" disabled>Delete</button>
                 </td>
               </tr>
             ))}

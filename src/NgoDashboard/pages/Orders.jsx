@@ -13,7 +13,8 @@ const Orders = () => {
   const GetOrders = async () => {
     try {
       await getConfig();
-      const response = await axiosInstance.get(`/api/v1/order/get-orders/${auth?.user?._id}`)
+      const response = await axiosInstance.get(`/api/v1/order/get-buyer-orders/${auth?.user?._id}`)
+      console.log("Auth user id :", auth?.user?._id)
       if(response.data.success){
         setGetOrder(response.data.orders)
       }else{

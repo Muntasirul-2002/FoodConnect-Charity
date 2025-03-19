@@ -167,7 +167,7 @@ const Home = () => {
             <div className="grids-area-hny main-cont-wthree-fea row">
               <div className="col-lg-4 col-md-6 grids-feature">
                 <div className="area-box">
-                  <img src="assets/images/donate.png" alt />
+                  <img src="assets/images/donate.png" alt="donate" />
                   <h4>
                     <a href="#feature" className="title-head">
                       Give Donation.
@@ -184,7 +184,7 @@ const Home = () => {
               </div>
               <div className="col-lg-4 col-md-6 grids-feature mt-md-0 mt-5">
                 <div className="area-box">
-                  <img src="assets/images/volunteer.png" alt />
+                  <img src="assets/images/volunteer.png" alt="volunteer" />
                   <h4>
                     <a href="#feature" className="title-head">
                       Become a Volunteer.
@@ -201,7 +201,7 @@ const Home = () => {
               </div>
               <div className="col-lg-4 col-md-6 grids-feature mt-lg-0 mt-5">
                 <div className="area-box">
-                  <img src="assets/images/child.png" alt width="52px" />
+                  <img src="assets/images/child.png" alt="child" width="52px" />
                   <h4>
                     <a href="#feature" className="title-head">
                       Help the Children.
@@ -375,7 +375,7 @@ const Home = () => {
                     <div className="icon">
                       <img
                         src="assets/images/home.png"
-                        alt
+                        alt="home"
                         className="img-fluid"
                       />
                     </div>
@@ -394,7 +394,7 @@ const Home = () => {
                     <div className="icon">
                       <img
                         src="assets/images/education.png"
-                        alt
+                        alt="education"
                         className="img-fluid"
                       />
                     </div>
@@ -413,7 +413,7 @@ const Home = () => {
                     <div className="icon">
                       <img
                         src="assets/images/health.png"
-                        alt
+                        alt="health"
                         className="img-fluid"
                       />
                     </div>
@@ -432,7 +432,7 @@ const Home = () => {
                     <div className="icon">
                       <img
                         src="assets/images/icon1.png"
-                        alt
+                        alt="icon1"
                         className="img-fluid"
                       />
                     </div>
@@ -451,7 +451,7 @@ const Home = () => {
                     <div className="icon">
                       <img
                         src="assets/images/food.png"
-                        alt
+                        alt="food"
                         className="img-fluid"
                       />
                     </div>
@@ -470,7 +470,7 @@ const Home = () => {
                     <div className="icon">
                       <img
                         src="assets/images/eco.png"
-                        alt
+                        alt="eco"
                         className="img-fluid"
                       />
                     </div>
@@ -497,42 +497,42 @@ const Home = () => {
                   <div className="col-lg-2 col-md-3 col-4">
                     <img
                       src="assets/images/brand1.png"
-                      alt
+                      alt="brand1"
                       className="img-fluid"
                     />
                   </div>
                   <div className="col-lg-2 col-md-3 col-4">
                     <img
                       src="assets/images/brand2.png"
-                      alt
+                      alt="brand2"
                       className="img-fluid"
                     />
                   </div>
                   <div className="col-lg-2 col-md-3 col-4">
                     <img
                       src="assets/images/brand3.png"
-                      alt
+                      alt='brand3'
                       className="img-fluid"
                     />
                   </div>
                   <div className="col-lg-2 col-md-3 col-4 mt-md-0 mt-4">
                     <img
                       src="assets/images/brand4.png"
-                      alt
+                      alt="brand4"
                       className="img-fluid"
                     />
                   </div>
                   <div className="col-lg-2 col-md-3 col-4 mt-lg-0 mt-4">
                     <img
                       src="assets/images/brand5.png"
-                      alt
+                      alt="brand5"
                       className="img-fluid"
                     />
                   </div>
                   <div className="col-lg-2 col-md-3 col-4 mt-lg-0 mt-4">
                     <img
                       src="assets/images/brand6.png"
-                      alt
+                      alt="brand6"
                       className="img-fluid"
                     />
                   </div>

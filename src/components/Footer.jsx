@@ -12,7 +12,7 @@ const Footer = () => {
                     <div className="image grid-three-column">
                       <img
                         src="assets/images/subscribe.png"
-                        alt
+                        alt="subscribe"
                         className="img-fluid radius-image-full"
                       />
                     </div>

@@ -3,13 +3,9 @@ import "../../HostelDashboard/styles/order.css";
 import { axiosInstance, getConfig } from "../../utils/request";
 import { useAuth } from "../../context/Auth";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Modal } from "antd";
 
 const Orders = () => {
   const [getOrder, setGetOrder] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const [auth] = useAuth();
 
   const GetOrders = async () => {

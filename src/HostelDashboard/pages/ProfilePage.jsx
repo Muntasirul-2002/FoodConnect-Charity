@@ -2,7 +2,7 @@ import React from "react";
 import { useAuth } from "../../context/Auth";
 import "../styles/profile.css";
 const ProfilePage = () => {
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   return (
     <>
       <div className="profile-container">

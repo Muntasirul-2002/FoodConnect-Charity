@@ -43,7 +43,7 @@ const Causes = () => {
                 </div>
               </div>
             </div>
-            <a href="#cause"><img src="assets/images/blog1.jpg" className="img-fuild radius-image-full" alt /></a>
+            <a href="#cause"><img src="assets/images/blog1.jpg" className="img-fuild radius-image-full" alt="blgo1" /></a>
           </div>
         </div>
         <div className="col-lg-4 col-md-6 causes-grid">
@@ -65,7 +65,7 @@ const Causes = () => {
                 </div>
               </div>
             </div>
-            <a href="#cause"><img src="assets/images/blog2.jpg" className="img-fuild radius-image-full" alt /></a>
+            <a href="#cause"><img src="assets/images/blog2.jpg" className="img-fuild radius-image-full" alt="blog2" /></a>
           </div>
         </div>
         <div className="col-lg-4 col-md-6 causes-grid">
@@ -87,7 +87,7 @@ const Causes = () => {
                 </div>
               </div>
             </div>
-            <a href="#cause"><img src="assets/images/blog3.jpg" className="img-fuild radius-image-full" alt /></a>
+            <a href="#cause"><img src="assets/images/blog3.jpg" className="img-fuild radius-image-full" alt="blog3" /></a>
           </div>
         </div>
         <div className="col-lg-4 col-md-6 causes-grid">
@@ -109,7 +109,7 @@ const Causes = () => {
                 </div>
               </div>
             </div>
-            <a href="#cause"><img src="assets/images/blog4.jpg" className="img-fuild radius-image-full" alt /></a>
+            <a href="#cause"><img src="assets/images/blog4.jpg" className="img-fuild radius-image-full" alt="blog4" /></a>
           </div>
         </div>
         <div className="col-lg-4 col-md-6 causes-grid">
@@ -131,7 +131,7 @@ const Causes = () => {
                 </div>
               </div>
             </div>
-            <a href="#cause"><img src="assets/images/blog5.jpg" className="img-fuild radius-image-full" alt /></a>
+            <a href="#cause"><img src="assets/images/blog5.jpg" className="img-fuild radius-image-full" alt="blog5" /></a>
           </div>
         </div>
         <div className="col-lg-4 col-md-6 causes-grid">
@@ -153,7 +153,7 @@ const Causes = () => {
                 </div>
               </div>
             </div>
-            <a href="#cause"><img src="assets/images/blog6.jpg" className="img-fuild radius-image-full" alt /></a>
+            <a href="#cause"><img src="assets/images/blog6.jpg" className="img-fuild radius-image-full" alt="blog6" /></a>
           </div>
         </div>
       </div>

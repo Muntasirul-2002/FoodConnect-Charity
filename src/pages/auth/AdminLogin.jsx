@@ -1,5 +1,5 @@
 import React from "react";
-import { toast } from "react-hot-toast";
+
 import "../../styles/adminlogin.css";
 
 const AdminLogin = () => {

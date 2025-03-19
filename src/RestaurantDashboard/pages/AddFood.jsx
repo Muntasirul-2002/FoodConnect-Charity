@@ -4,7 +4,7 @@ import { getConfig, axiosInstance } from "../../utils/request";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../../context/Auth";
 const AddFood = () => {
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   const [foodName, setFoodName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");

@@ -56,7 +56,7 @@ const About = () => {
               <div className="col-lg-6 mt-lg-0 mt-5">
                 <img
                   src="assets/images/about.jpg"
-                  alt
+                  alt="about"
                   className="radius-image img-fluid"
                 />
               </div>
@@ -156,7 +156,7 @@ const About = () => {
                     <div className="team-img">
                       <img
                         src="assets/images/team1.jpg"
-                        alt
+                        alt="team1"
                         className="radius-image img-fluid"
                       />
                     </div>
@@ -172,7 +172,7 @@ const About = () => {
                     <div className="team-img">
                       <img
                         src="assets/images/team2.jpg"
-                        alt
+                        alt="team2"
                         className="radius-image img-fluid"
                       />
                     </div>
@@ -188,7 +188,7 @@ const About = () => {
                     <div className="team-img">
                       <img
                         src="assets/images/team3.jpg"
-                        alt
+                        alt="team3"
                         className="radius-image img-fluid"
                       />
                     </div>
@@ -204,7 +204,7 @@ const About = () => {
                     <div className="team-img">
                       <img
                         src="assets/images/team4.jpg"
-                        alt
+                        alt="team4"
                         className="radius-image img-fluid"
                       />
                     </div>
@@ -220,7 +220,7 @@ const About = () => {
                     <div className="team-img">
                       <img
                         src="assets/images/team5.jpg"
-                        alt
+                        alt="team5"
                         className="radius-image img-fluid"
                       />
                     </div>
@@ -236,7 +236,7 @@ const About = () => {
                     <div className="team-img">
                       <img
                         src="assets/images/team6.jpg"
-                        alt
+                        alt="team6"
                         className="radius-image img-fluid"
                       />
                     </div>
@@ -252,7 +252,7 @@ const About = () => {
                     <div className="team-img">
                       <img
                         src="assets/images/team7.jpg"
-                        alt
+                        alt="team7"
                         className="radius-image img-fluid"
                       />
                     </div>
@@ -268,7 +268,7 @@ const About = () => {
                     <div className="team-img">
                       <img
                         src="assets/images/team8.jpg"
-                        alt
+                        alt="team8"
                         className="radius-image img-fluid"
                       />
                     </div>
@@ -284,7 +284,7 @@ const About = () => {
                     <div className="team-img">
                       <img
                         src="assets/images/team9.jpg"
-                        alt
+                        alt="team9"
                         className="radius-image img-fluid"
                       />
                     </div>
@@ -503,7 +503,7 @@ const About = () => {
                     <div className="image grid-three-column">
                       <img
                         src="assets/images/subscribe.png"
-                        alt
+                        alt="subscribe"
                         className="img-fluid radius-image-full"
                       />
                     </div>
