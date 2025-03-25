@@ -1,0 +1,5 @@
+{
+    "rewrites":[
+        {"source": "/Ads.txt", "destination":"/public/Ads.txt"}
+    ]
+}
