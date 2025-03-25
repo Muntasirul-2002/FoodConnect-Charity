@@ -25,7 +25,7 @@ import AdminDashboard from "./Admin/AdminDashboard";
 const App = () => {
   const location = useLocation();
   const isDashboard = location.pathname.includes("/dashboard");
-  const backend_url = "http://localhost:8080";
+  const backend_url = "https://foodconnect-charity-backend.onrender.com";
   return (
     <div>
       {!isDashboard && <Navbar />}

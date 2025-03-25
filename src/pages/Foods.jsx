@@ -112,7 +112,7 @@ const Foods = () => {
                 {foods.images && foods.images.length > 0 ? (
                   <Link to={`/food-details/${foods.slug}`}>
                     <img
-                      src={`http://localhost:8080/image/${foods.images[0]}`}
+                      src={`https://foodconnect-charity-backend.onrender.com//image/${foods.images[0]}`}
                       className="meal-img"
                       alt="Japanese Gyozas"
                     />
