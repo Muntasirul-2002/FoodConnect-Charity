@@ -1,6 +1,6 @@
 import React from "react";
-import {Link} from 'react-router-dom'
-import '../styles/home.css'
+import { Link } from "react-router-dom";
+import "../styles/home.css";
 const Home = () => {
   return (
     <div>
@@ -16,8 +16,8 @@ const Home = () => {
                         <div className="banner-info-bg text-left">
                           <p>Food Connect</p>
                           <h5>
-                            Food Connect, Faith and Hope. Help the hungry people. Charity
-                            life.
+                            Food Connect, Faith and Hope. Help the hungry
+                            people. Charity life.
                           </h5>
                           <a
                             href="about.html"
@@ -122,21 +122,21 @@ const Home = () => {
               <div className="col-lg-4 col-md-6 col-sm-12">
                 <div className="box-wrap">
                   <h4>
-                    <Link to={'/foods'}>Available foods</Link>
+                    <Link to={"/foods"}>Available foods</Link>
                   </h4>
                 </div>
               </div>
               <div className="col-lg-4 col-md-6 col-sm-12 mt-md-0 mt-sm-4 mt-3">
                 <div className="box-wrap">
                   <h4>
-                    <Link to={'/signup'} >Become a member?</Link>
+                    <Link to={"/signup"}>Become a member?</Link>
                   </h4>
                 </div>
               </div>
               <div className="col-lg-4 col-md-6 col-sm-12 mt-lg-0 mt-sm-4 mt-3">
                 <div className="box-wrap">
                   <h4>
-                    <Link to={'/contact'} >Request a Quote</Link>
+                    <Link to={"/contact"}>Request a Quote</Link>
                   </h4>
                 </div>
               </div>
@@ -276,6 +276,19 @@ const Home = () => {
             </div>
           </div>
         </section>
+        <div>
+          <amp-ad
+            width="100vw"
+            height="320"
+            type="adsense"
+            data-ad-client="ca-pub-1516523078833738"
+            data-ad-slot="5030992485"
+            data-auto-format="rspv"
+            data-full-width=""
+          >
+            <div overflow=""></div>
+          </amp-ad>
+        </div>
         <div className="w3l-bg py-5">
           <div className="container py-lg-5 py-md-4">
             <div className="welcome-left text-center py-lg-4">
@@ -299,12 +312,20 @@ const Home = () => {
                 <div className="header-section">
                   <h3 className="title-big">Our Charity Causes </h3>
                   <h4 className="food-desc">
-                  If you're passionate about making a difference and want to collaborate with us, we'd love to hear from you
-                    <Link to={'/contact'}>Send your Details.</Link>
+                    If you're passionate about making a difference and want to
+                    collaborate with us, we'd love to hear from you
+                    <Link to={"/contact"}>Send your Details.</Link>
                   </h4>
                   <p className="mt-3 mb-lg-5 mb-4 food-desc">
                     {" "}
-                    At Food Connect, we believe in a world where no food goes to waste and no person goes hungry. Our mission is to bridge the gap between surplus food and those in need by leveraging technology to connect donors with local charities and shelters. Through our platform, we aim to create a sustainable solution to food waste by ensuring that perfectly good food is redistributed to communities battling hunger.
+                    At Food Connect, we believe in a world where no food goes to
+                    waste and no person goes hungry. Our mission is to bridge
+                    the gap between surplus food and those in need by leveraging
+                    technology to connect donors with local charities and
+                    shelters. Through our platform, we aim to create a
+                    sustainable solution to food waste by ensuring that
+                    perfectly good food is redistributed to communities battling
+                    hunger.
                   </p>
                 </div>
                 <a
@@ -511,7 +532,7 @@ const Home = () => {
                   <div className="col-lg-2 col-md-3 col-4">
                     <img
                       src="assets/images/brand3.png"
-                      alt='brand3'
+                      alt="brand3"
                       className="img-fluid"
                     />
                   </div>
@@ -541,7 +562,6 @@ const Home = () => {
             </div>
           </div>
         </section>
-        
       </div>
     </div>
   );
