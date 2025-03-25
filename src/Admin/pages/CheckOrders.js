@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import "../styles/admins.css";
 import { axiosInstance, getConfig } from "../../utils/request";
 import toast from "react-hot-toast";
-import { Button, Select } from "antd";
+import { Button, Modal, Select } from "antd";
+
+const {Option} = Select
 const CheckOrders = () => {
   const [getOrder, setGetOrder] = useState([]);
   const [canceledOrders, setCanceledOrders] = useState(new Set());
