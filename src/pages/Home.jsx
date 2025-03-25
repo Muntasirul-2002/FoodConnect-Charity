@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/home.css";
 import GoogleAdSense from "../AdSense/GoogleAdSense";
+import GoogleAdArticle from "../AdSense/GoogleAdArticle";
 
 const Home = () => {
   return (
@@ -503,6 +504,9 @@ const Home = () => {
               </div>
             </div>
           </div>
+        </section>
+        <section>
+          <GoogleAdArticle/>
         </section>
         <section className="w3l-clients py-5" id="clients">
           <div className="call-w3 py-lg-5 py-md-4">

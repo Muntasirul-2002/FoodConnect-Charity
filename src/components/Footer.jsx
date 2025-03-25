@@ -136,11 +136,11 @@ const Footer = () => {
                   </div>
                 </div>
               </div>
-              {/* move top */}
+             
               <button onClick="topFunction()" id="movetop" title="Go to top">
                 ↑
               </button>
-              {/* /move top */}
+             
             </footer>
           </div>
         </div>
