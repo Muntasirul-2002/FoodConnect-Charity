@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/home.css";
+import GoogleAdSense from "../AdSense/GoogleAdSense";
+
 const Home = () => {
   return (
     <div>
@@ -219,6 +221,11 @@ const Home = () => {
             </div>
           </div>
         </section>
+        <section>
+        <div>
+          <GoogleAdSense/>
+        </div>
+        </section>
         <section className="w3_stats py-5" id="stats">
           <div className="container py-lg-5 py-md-4 py-2">
             <div className="title-content text-center">
@@ -276,19 +283,7 @@ const Home = () => {
             </div>
           </div>
         </section>
-        <div>
-          <amp-ad
-            width="100vw"
-            height="320"
-            type="adsense"
-            data-ad-client="ca-pub-1516523078833738"
-            data-ad-slot="5030992485"
-            data-auto-format="rspv"
-            data-full-width=""
-          >
-            <div overflow=""></div>
-          </amp-ad>
-        </div>
+        
         <div className="w3l-bg py-5">
           <div className="container py-lg-5 py-md-4">
             <div className="welcome-left text-center py-lg-4">
