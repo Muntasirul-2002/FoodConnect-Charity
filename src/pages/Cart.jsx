@@ -5,11 +5,11 @@ import { useCart } from "../context/cart";
 import { axiosInstance, getConfig } from "../utils/request";
 import { toast } from "react-hot-toast";
 import emptyImg from "../image/empty-cart.webp";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 const Cart = ({ backend_url }) => {
   const [auth] = useAuth();
   const [cart, setCart] = useCart();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     ngo: "",
@@ -65,18 +65,18 @@ const Cart = ({ backend_url }) => {
       if (cart.length === 0) {
         return toast.error("Your cart is empty");
       }
-  
+
       // const sellerId = auth?.user?._id;
-  
+
       // if (!sellerId) {
       //   return toast.error("Seller Id is missing");
       // }
-  
-       const orderData = {
+
+      const orderData = {
         foodItem: cart.map((item) => item._id),
         food_name: cart.map((item) => item.name),
         buyer: auth?.user?._id,
-        sellerId: cart.map((item)=> item.sellerId),
+        sellerId: cart.map((item) => item.sellerId),
         address: {
           name: formData.name,
           ngo: formData.ngo,
@@ -84,13 +84,13 @@ const Cart = ({ backend_url }) => {
           location: formData.location,
           mapLink: formData.mapLink,
         },
-      };  
+      };
       await getConfig();
       const { data } = await axiosInstance.post(
         "/api/v1/order/create-order",
         orderData
       );
-  
+
       if (data.success) {
         setCart([]);
         localStorage.removeItem("cart");
@@ -112,12 +112,15 @@ const Cart = ({ backend_url }) => {
       toast.error("Something went wrong");
     }
   };
-  
+
   return (
     <>
       <div className="cart-page">
         <div className="cart-items">
-          <h2>{`${auth?.user?.orgName} - You have ${cart.length} items in your cart`}</h2>
+          <h2>
+            {auth?.user ? auth?.user?.orgName : <>Dear User{" "}</>}- You have {" "}
+            {cart.length} items in your cart
+          </h2>
           {cart && cart.length > 0 ? (
             cart.map((item) => (
               <div key={item._id} className="cart-item-card">
@@ -147,8 +150,7 @@ const Cart = ({ backend_url }) => {
                       : "Not Specified"}
                   </p>
                   <p>
-                    <strong>SellerId:</strong>{" "}
-                    {item.sellerId}
+                    <strong>SellerId:</strong> {item.sellerId}
                   </p>
                   <p>
                     <strong>Location:</strong> {item.location}
@@ -173,93 +175,102 @@ const Cart = ({ backend_url }) => {
             </div>
           )}
         </div>
-
-        <div className="delivery-form">
-          <h2>Delivery Location</h2>
-          <form>
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                placeholder="Enter your name"
-              />
+        {cart && cart.length > 0 ? (
+          <>
+            <div className="delivery-form">
+              <h2>Delivery Location</h2>
+              <form>
+                <div className="form-group">
+                  <label htmlFor="name">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="ngo">From NGO Name</label>
+                  <input
+                    type="text"
+                    id="ngo"
+                    name="ngo"
+                    value={formData.ngo}
+                    onChange={handleChange}
+                    placeholder="Enter NGO name"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="contact">Contact</label>
+                  <input
+                    name="contact"
+                    type="text"
+                    id="contact"
+                    placeholder="Enter contact number"
+                    value={formData.contact}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="location">Location</label>
+                  <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    placeholder="Enter location"
+                    required
+                    value={formData.location}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="landmark">Landmark</label>
+                  <input
+                    type="text"
+                    id="landmark"
+                    name="landmark"
+                    value={formData.landmark}
+                    onChange={handleChange}
+                    placeholder="Enter landmark"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="map">Google Map Selection</label>
+                  <input
+                    type="text"
+                    id="map"
+                    name="mapLink"
+                    value={formData.mapLink}
+                    onChange={handleChange}
+                    placeholder="Google Map link"
+                  />
+                  <button
+                    type="button"
+                    className="map-button"
+                    onClick={() => openMapSelection()}
+                  >
+                    Select Location on Map
+                  </button>
+                </div>
+              </form>
             </div>
-            <div className="form-group">
-              <label htmlFor="ngo">From NGO Name</label>
-              <input
-                type="text"
-                id="ngo"
-                name="ngo"
-                value={formData.ngo}
-                onChange={handleChange}
-                placeholder="Enter NGO name"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="contact">Contact</label>
-              <input
-                name="contact"
-                type="text"
-                id="contact"
-                placeholder="Enter contact number"
-                value={formData.contact}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="location">Location</label>
-              <input
-                type="text"
-                id="location"
-                name="location"
-                placeholder="Enter location"
-                required
-                value={formData.location}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="landmark">Landmark</label>
-              <input
-                type="text"
-                id="landmark"
-                name="landmark"
-                value={formData.landmark}
-                onChange={handleChange}
-                placeholder="Enter landmark"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="map">Google Map Selection</label>
-              <input
-                type="text"
-                id="map"
-                name="mapLink"
-                value={formData.mapLink}
-                onChange={handleChange}
-                placeholder="Google Map link"
-              />
+            <div className="place-order">
               <button
-                type="button"
-                className="map-button"
-                onClick={() => openMapSelection()}
+                type="submit"
+                onClick={handlePlaceOrder}
+                className="order-button"
               >
-                Select Location on Map
+                Place Order
               </button>
             </div>
-          </form>
-        </div>
-        <div className="place-order">
-          <button type="submit" onClick={handlePlaceOrder} className="order-button">
-            Place Order
-          </button>
-        </div>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );
