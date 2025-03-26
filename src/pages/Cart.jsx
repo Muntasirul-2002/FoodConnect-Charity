@@ -75,7 +75,7 @@ const Cart = ({ backend_url }) => {
       const orderData = {
         foodItem: cart.map((item) => item._id),
         food_name: cart.map((item) => item.name),
-        buyer: auth?.user?._id,
+        buyerId: auth?.user?._id,
         sellerId: cart.map((item) => item.sellerId),
         address: {
           name: formData.name,

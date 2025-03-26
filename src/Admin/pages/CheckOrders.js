@@ -138,7 +138,7 @@ const CheckOrders = () => {
                         </td>
                         <td>
                           <textarea style={{ width: "100px" }}>
-                            {order.buyer}
+                            {order.buyerId}
                           </textarea>
                         </td>
                         <td>
